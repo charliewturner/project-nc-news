@@ -12,17 +12,21 @@ function PostDisplayItem({
   shareLink,
 }) {
   return (
-    <li id={id}>
+    <li id={id} className="post-item">
       <section>
-        <img src={article_img_url} alt="Image not found." />
+        <img
+          className="post-image"
+          src={article_img_url}
+          alt="Image not found."
+        />
       </section>
       <section>
-        <p>{title}</p>
-        <p>{topic}</p>
-        <p>{created_at}</p>
-        <p>{author}</p>
-        <p>{seeFullPost}</p>
-        <p>{shareLink}</p>
+        <p className="post-title">{title}</p>
+        <p className="post-topic">{topic}</p>
+        <p className="post-date">{created_at}</p>
+        <p className="post-author">{author}</p>
+        <button onClick={() => seeFullPost(id)}>{seeFullPost}</button>
+        <button onClick={() => shareLink(id)}>{shareLink}</button>
       </section>
       <section>
         <div>upvote</div>
@@ -33,4 +37,3 @@ function PostDisplayItem({
   );
 }
 export default PostDisplayItem;
-<li></li>;
