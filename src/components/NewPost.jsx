@@ -1,3 +1,7 @@
 import NewPostForm from "./NewPostForm";
 
+function NewPost() {
+  return <h1>NewPost</h1>;
+}
+
 export default NewPost;
