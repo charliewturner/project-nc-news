@@ -24,13 +24,10 @@ function App() {
       setMainPageStatus("loading");
       try {
         const data = await getAPI(apiURL);
-        console.log(data);
         const { articles } = data;
-        console.log(articles);
         setDisplayedPosts(articles);
         setMainPageStatus("success");
       } catch (err) {
-        console.log(err);
         setMainPageStatus("error");
       }
     };
@@ -47,12 +44,14 @@ function App() {
   }
 
   return (
-    <>
+    <section className="main-display">
       <TopicSelector />
       <PostsDisplay displayedPosts={displayedPosts} />
-      <Search />
-      <NewPost />
-    </>
+      <section className="app-right">
+        <Search />
+        <NewPost />
+      </section>
+    </section>
   );
 }
 

@@ -66,3 +66,23 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+.main-display > * {
+  display: flex;
+  flex-direction: row;
+  border: solid;
+}
+
+.posts-display > * {
+  display: flex;
+  flex-direction: column;
+  border: solid;
+}
+
+li {
+  list-style: none;
+}
+
+.post-image {
+  width: 100px;
+}
