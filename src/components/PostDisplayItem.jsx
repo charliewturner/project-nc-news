@@ -30,10 +30,12 @@ function PostDisplayItem({
           <p className="post-topic">{topic}</p>
           <p className="post-date">{formattedDate} </p>
           <p className="post-author">{author} </p>
-          <button onClick={() => seeFullPost(id)}>
+          <button className="seeFullPostButton" onClick={() => seeFullPost(id)}>
             {seeFullPost}See full post
           </button>
-          <button onClick={() => shareLink(id)}>{shareLink}Share link</button>
+          <button className="shareLinkButton" onClick={() => shareLink(id)}>
+            {shareLink}Share link
+          </button>
         </div>
       </section>
       <section className="post-item-right">

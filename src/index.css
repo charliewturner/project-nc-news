@@ -113,9 +113,24 @@ li {
   margin-left: 10px;
   margin-right: 10px;
   gap: 10px;
+  align-items: center;
+  height: 40px;
 }
 .post-item-center-row > * {
   border: solid;
+  height: 30px;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  text-align: center;
+  line-height: 30px;
+}
+
+.seeFullPostButton,
+.shareLinkButton {
+  padding: 0;
+  height: 30px;
+  align-items: center;
 }
 
 .post-item-right {
