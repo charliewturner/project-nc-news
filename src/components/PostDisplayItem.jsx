@@ -11,6 +11,10 @@ function PostDisplayItem({
   seeFullPost,
   shareLink,
 }) {
+  let formattedDate = created_at.slice(0, 10);
+  formattedDate = new Date(formattedDate);
+  formattedDate = formattedDate.toLocaleDateString();
+
   return (
     <li id={id} className="post-item">
       <section className="post-item-left">
@@ -24,7 +28,7 @@ function PostDisplayItem({
         <p className="post-title">{title}</p>
         <div className="post-item-center-row">
           <p className="post-topic">{topic}</p>
-          <p className="post-date">{created_at} </p>
+          <p className="post-date">{formattedDate} </p>
           <p className="post-author">{author} </p>
           <button onClick={() => seeFullPost(id)}>
             {seeFullPost}See full post
