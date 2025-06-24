@@ -1,35 +1,42 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect, useState } from "react";
+import "./App.css";
+import TopicSelector from "./components/TopicSelector";
+import PostsDisplay from "./components/PostsDisplay";
+import Search from "./components/Search";
+import NewPost from "./components/NewPost";
+import getAPI from "./components/getAPI";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
+  const [mainPageStatus, setMainPageStatus] = useState("success");
+
+  //SET INITIAL URL
+  const [apiURL, setApiURL] = useState(
+    `https://project-northcoders-news.onrender.com/`
+  );
+
+  const [displayedPosts, setDisplayedPosts] = useState(null);
+  const [topicFiltered, setTopicFiltered] = useState(null);
+
+  useEffect(() => {
+    const fetchAPI = async function () {
+      try {
+        const data = await getAPI(apiURL);
+        console.log(data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+  }, [topicFiltered]);
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <TopicSelector />
+      <PostsDisplay displayedPosts={displayedPosts} />
+      <Search />
+      <NewPost />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
