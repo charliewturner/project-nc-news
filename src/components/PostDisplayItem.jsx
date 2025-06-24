@@ -27,9 +27,9 @@ function PostDisplayItem({
       <section className="post-item-center">
         <p className="post-title">{title}</p>
         <div className="post-item-center-row">
-          <p className="post-topic">{topic}</p>
+          <p className="post-topic">Topic: {topic}</p>
           <p className="post-date">{formattedDate} </p>
-          <p className="post-author">{author} </p>
+          <p className="post-author">Posted by {author}</p>
           <button className="seeFullPostButton" onClick={() => seeFullPost(id)}>
             {seeFullPost}See full post
           </button>
