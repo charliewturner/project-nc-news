@@ -97,13 +97,35 @@ li {
   width: 100px;
 }
 
-.post-item-center > * {
-  border: solid;
-  display: inline-block;
-  margin-left: 10px;
-  margin-right: 10px;
+.post-item-center {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
 }
-
 .post-title {
   width: 100%;
+  text-align: start;
+  margin-left: 10px;
+}
+.post-item-center-row {
+  border: solid;
+  display: flex;
+  margin-left: 10px;
+  margin-right: 10px;
+  gap: 10px;
+}
+.post-item-center-row > * {
+  border: solid;
+}
+
+.post-item-right {
+  display: flex;
+  flex-direction: column;
+  border: solid;
+  margin-left: 5px;
+
+  width: 30px;
+  justify-content: center;
+  align-items: center;
+  vertical-align: middle;
 }

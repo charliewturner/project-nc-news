@@ -22,18 +22,20 @@ function PostDisplayItem({
       </section>
       <section className="post-item-center">
         <p className="post-title">{title}</p>
-        <p className="post-topic">{topic}</p>
-        <p className="post-date">{created_at} </p>
-        <p className="post-author">{author} </p>
-        <button onClick={() => seeFullPost(id)}>
-          {seeFullPost}See full post
-        </button>
-        <button onClick={() => shareLink(id)}>{shareLink}Share link</button>
+        <div className="post-item-center-row">
+          <p className="post-topic">{topic}</p>
+          <p className="post-date">{created_at} </p>
+          <p className="post-author">{author} </p>
+          <button onClick={() => seeFullPost(id)}>
+            {seeFullPost}See full post
+          </button>
+          <button onClick={() => shareLink(id)}>{shareLink}Share link</button>
+        </div>
       </section>
       <section className="post-item-right">
-        <div className="upvote">upvote</div>
+        <div className="upvote">↑</div>
         <div className="voteNumber">{votes}</div>
-        <div className="downvote">downvote</div>
+        <div className="downvote">↓</div>
       </section>
     </li>
   );
