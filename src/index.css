@@ -127,5 +127,23 @@ li {
   width: 30px;
   justify-content: center;
   align-items: center;
-  vertical-align: middle;
+}
+
+.upvote,
+.downvote {
+  font-size: xx-large;
+  font-weight: 900;
+}
+
+.downvote {
+  margin-top: -5px;
+}
+.voteNumber {
+  font-weight: 700;
+}
+
+.upvote:hover,
+.downvote:hover {
+  transform: scale(1.2);
+  transition: transform 0.15s;
 }
