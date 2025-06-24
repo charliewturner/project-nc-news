@@ -83,6 +83,27 @@ li {
   list-style: none;
 }
 
+.post-item {
+  display: flex;
+  border: solid;
+}
+
+.post-item-left {
+  align-self: center;
+  margin-left: 10px;
+}
+
 .post-image {
   width: 100px;
+}
+
+.post-item-center > * {
+  border: solid;
+  display: inline-block;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.post-title {
+  width: 100%;
 }
