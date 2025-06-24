@@ -5,7 +5,7 @@ function PostsDisplay({ displayedPosts }) {
     <section id="posts-display">
       <ul>
         {displayedPosts.map((post) => {
-          const id = displayedPosts.index0f(post);
+          const id = displayedPosts.indexOf(post);
 
           return (
             <PostDisplayItem
