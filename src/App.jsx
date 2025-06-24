@@ -12,10 +12,11 @@ function App() {
 
   //SET INITIAL URL
   const [apiURL, setApiURL] = useState(
-    `https://project-northcoders-news.onrender.com/`
+    `https://project-northcoders-news.onrender.com/api/articles`
   );
 
   const [displayedPosts, setDisplayedPosts] = useState(null);
+
   const [topicFiltered, setTopicFiltered] = useState(null);
 
   useEffect(() => {
@@ -23,10 +24,16 @@ function App() {
       try {
         const data = await getAPI(apiURL);
         console.log(data);
+        const articles = { data };
+        setDisplayedPosts(articles);
+        setMainPageStatus("success");
       } catch (err) {
         console.log(err);
+        setMainPageStatus("error");
       }
     };
+
+    fetchAPI();
   }, [topicFiltered]);
 
   return (

@@ -5,17 +5,20 @@ function PostsDisplay({ displayedPosts }) {
     <section id="posts-display">
       <ul>
         {displayedPosts.map((post) => {
+          const id = displayedPosts.index0f(post);
+
           return (
             <PostDisplayItem
               key={post.article_id}
-              img={img}
-              title={title}
-              topic={topic}
-              created_at={created_at}
-              author={author}
-              seeFullPost={seeFullPost}
-              shareLink={shareLink}
-              votes={votes}
+              id={id}
+              article_img_url={post.article_img_url}
+              title={post.title}
+              topic={post.topic}
+              created_at={post.created_at}
+              author={post.author}
+              seeFullPost={post.seeFullPost}
+              shareLink={post.shareLink}
+              votes={post.votes}
             />
           );
         })}
