@@ -1,6 +1,7 @@
 import PostDisplayItem from "./PostDisplayItem";
 
 function PostsDisplay({ displayedPosts }) {
+  console.log(displayedPosts);
   return (
     <section id="posts-display">
       <ul>

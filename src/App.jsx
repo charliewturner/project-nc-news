@@ -24,7 +24,8 @@ function App() {
       try {
         const data = await getAPI(apiURL);
         console.log(data);
-        const articles = { data };
+        const { articles } = data;
+        console.log(articles);
         setDisplayedPosts(articles);
         setMainPageStatus("success");
       } catch (err) {
