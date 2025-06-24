@@ -8,19 +8,20 @@ import getAPI from "./components/getAPI";
 
 function App() {
   const [count, setCount] = useState(0);
-  const [mainPageStatus, setMainPageStatus] = useState("success");
+  const [mainPageStatus, setMainPageStatus] = useState("loading");
 
   //SET INITIAL URL
   const [apiURL, setApiURL] = useState(
     `https://project-northcoders-news.onrender.com/api/articles`
   );
 
-  const [displayedPosts, setDisplayedPosts] = useState(null);
+  const [displayedPosts, setDisplayedPosts] = useState([]);
 
   const [topicFiltered, setTopicFiltered] = useState(null);
 
   useEffect(() => {
     const fetchAPI = async function () {
+      setMainPageStatus("loading");
       try {
         const data = await getAPI(apiURL);
         console.log(data);
@@ -36,6 +37,14 @@ function App() {
 
     fetchAPI();
   }, [topicFiltered]);
+
+  if (mainPageStatus === "error") {
+    return <h1>Error loading page</h1>;
+  }
+
+  if (mainPageStatus === "loading") {
+    return <h1>Loading articles...</h1>;
+  }
 
   return (
     <>
