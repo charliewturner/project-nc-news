@@ -15,6 +15,10 @@ function PostDisplayItem({
   formattedDate = new Date(formattedDate);
   formattedDate = formattedDate.toLocaleDateString();
 
+  //   function seeFullPost(id) {
+  //     console.log(id);
+  //   }
+
   return (
     <li id={id} className="post-item">
       <section className="post-item-left">
@@ -30,11 +34,16 @@ function PostDisplayItem({
           <p className="post-topic">Topic: {topic}</p>
           <p className="post-date">{formattedDate} </p>
           <p className="post-author">Posted by {author}</p>
-          <button className="seeFullPostButton" onClick={() => seeFullPost(id)}>
-            {seeFullPost}See full post
+          <button
+            className="seeFullPostButton"
+            onClick={() => {
+              seeFullPost();
+            }}
+          >
+            See full post
           </button>
           <button className="shareLinkButton" onClick={() => shareLink(id)}>
-            {shareLink}Share link
+            Share link
           </button>
         </div>
       </section>

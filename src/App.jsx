@@ -19,6 +19,13 @@ function App() {
 
   const [topicFiltered, setTopicFiltered] = useState(null);
 
+  const [popUpPost, setPopUpPost] = useState(null);
+
+  function handleSeeFullPost(article) {
+    console.log("registered click in APP jsx");
+    setPopUpPost(article);
+  }
+
   useEffect(() => {
     const fetchAPI = async function () {
       setMainPageStatus("loading");
@@ -54,7 +61,10 @@ function App() {
         setTopicFiltered={setTopicFiltered}
         topicFiltered={topicFiltered}
       />
-      <PostsDisplay displayedPosts={displayedPosts} />
+      <PostsDisplay
+        displayedPosts={displayedPosts}
+        seeFullPost={handleSeeFullPost}
+      />
     </section>
   );
 }

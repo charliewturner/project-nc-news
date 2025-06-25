@@ -1,6 +1,6 @@
 import PostDisplayItem from "./PostDisplayItem";
 
-function PostsDisplay({ displayedPosts }) {
+function PostsDisplay({ displayedPosts, seeFullPost }) {
   // console.log(displayedPosts);
   return (
     <section className="posts-display">
@@ -17,8 +17,8 @@ function PostsDisplay({ displayedPosts }) {
               topic={post.topic}
               created_at={post.created_at}
               author={post.author}
-              seeFullPost={post.seeFullPost}
-              shareLink={post.shareLink}
+              seeFullPost={() => seeFullPost(post)}
+              //   shareLink={post.shareLink}
               votes={post.votes}
             />
           );
