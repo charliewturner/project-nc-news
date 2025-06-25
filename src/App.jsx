@@ -5,6 +5,7 @@ import PostsDisplay from "./components/PostsDisplay";
 import Search from "./components/Search";
 import NewPost from "./components/NewPost";
 import getAPI from "./components/getAPI";
+import FullPost from "./components/FullPost";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -52,20 +53,23 @@ function App() {
   }
 
   return (
-    <section className="main-display">
-      <section className="app-right">
-        <Search />
-        <NewPost />
+    <>
+      <section className="main-display">
+        <section className="app-right">
+          <Search />
+          <NewPost />
+        </section>
+        <TopicSelector
+          setTopicFiltered={setTopicFiltered}
+          topicFiltered={topicFiltered}
+        />
+        <PostsDisplay
+          displayedPosts={displayedPosts}
+          seeFullPost={handleSeeFullPost}
+        />
       </section>
-      <TopicSelector
-        setTopicFiltered={setTopicFiltered}
-        topicFiltered={topicFiltered}
-      />
-      <PostsDisplay
-        displayedPosts={displayedPosts}
-        seeFullPost={handleSeeFullPost}
-      />
-    </section>
+      {popUpPost && <FullPost />}
+    </>
   );
 }
 

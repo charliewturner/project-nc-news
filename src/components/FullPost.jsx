@@ -1,5 +1,5 @@
 function FullPost() {
-  return <h1>FullPost</h1>;
+  return <div className="fullPostPopUp">Full Post Pop-Up</div>;
 }
 
 export default FullPost;
