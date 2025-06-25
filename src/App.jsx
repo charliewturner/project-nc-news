@@ -23,7 +23,8 @@ function App() {
     const fetchAPI = async function () {
       setMainPageStatus("loading");
       try {
-        const data = await getAPI(apiURL);
+        const url = topicFiltered ? apiURL + `?topic=${topicFiltered}` : apiURL;
+        const data = await getAPI(url);
         const { articles } = data;
         setDisplayedPosts(articles);
         setMainPageStatus("success");
@@ -49,7 +50,10 @@ function App() {
         <Search />
         <NewPost />
       </section>
-      <TopicSelector />
+      <TopicSelector
+        setTopicFiltered={setTopicFiltered}
+        topicFiltered={topicFiltered}
+      />
       <PostsDisplay displayedPosts={displayedPosts} />
     </section>
   );
