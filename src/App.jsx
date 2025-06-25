@@ -45,12 +45,12 @@ function App() {
 
   return (
     <section className="main-display">
-      <TopicSelector />
-      <PostsDisplay displayedPosts={displayedPosts} />
       <section className="app-right">
         <Search />
         <NewPost />
       </section>
+      <TopicSelector />
+      <PostsDisplay displayedPosts={displayedPosts} />
     </section>
   );
 }
