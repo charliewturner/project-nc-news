@@ -1,6 +1,7 @@
 import FullPost from "./FullPost";
 
 function PostDisplayItem({
+  article_id,
   id,
   article_img_url,
   title,
@@ -51,7 +52,7 @@ function PostDisplayItem({
         <div
           className="upvote"
           onClick={() => {
-            handleArticleVote();
+            handleArticleVote(article_id, 1);
           }}
         >
           ↑
@@ -60,7 +61,7 @@ function PostDisplayItem({
         <div
           className="downvote"
           onClick={() => {
-            handleArticleVote();
+            handleArticleVote(article_id, -1);
           }}
         >
           ↓

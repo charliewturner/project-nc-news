@@ -43,6 +43,8 @@ function App() {
 
     if (changeVoteBy === currentVote) return;
 
+    const voteDifference = changeVoteBy - currentVote;
+
     fetch(
       `https://project-northcoders-news.onrender.com/api/articles/${article_id}`,
       {
@@ -50,14 +52,22 @@ function App() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ inc_votes: changeVoteBy - currentVote }),
+        body: JSON.stringify({ inc_votes: voteDifference }),
       }
     )
       .then((response) => {
         return response.json();
       })
-      .then((data) => {
+      .then(({ data }) => {
         console.log(data);
+        //update the userArticleVotes object
+        setUserArticleVotes((currentVotes) => {
+          const updateVotes = { ...currentVotes };
+          updateVotes[article_id] = changeVoteBy;
+          return updateVotes;
+        });
+
+        //update the visual vote number (Re-render may be less user friendly if multiple voted have occured while the user is looking at the post)
       })
       .catch((error) => {
         console.log(error);

@@ -11,6 +11,7 @@ function PostsDisplay({ displayedPosts, seeFullPost }) {
           return (
             <PostDisplayItem
               key={post.article_id}
+              article_id={post.article_id}
               id={id}
               article_img_url={post.article_img_url}
               title={post.title}
