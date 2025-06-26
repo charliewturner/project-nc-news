@@ -79,6 +79,12 @@ button:focus-visible {
   border: solid;
 }
 
+.posts-display-list > *:hover {
+  transform: scale(1.001);
+  transition: transform 0.03s;
+  box-shadow: 0 0 10px;
+}
+
 li {
   list-style: none;
 }
@@ -181,16 +187,13 @@ li {
 }
 
 .full-post-pop-up {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
   background-color: rgba(151, 151, 151, 0.696);
   z-index: 2;
-}
-.content {
-  overflow: visible;
 }
 
 .pop-up-close {
@@ -219,10 +222,12 @@ li {
   height: 90vw;
   max-height: 90vw;
   overflow-y: scroll;
+
   z-index: 3;
   background-color: white;
   border-style: solid;
   border-radius: 15px;
+  box-shadow: 0 0 10px;
 
   top: 5%;
   left: 50%;

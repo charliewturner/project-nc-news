@@ -1,10 +1,10 @@
 import PostDisplayItem from "./PostDisplayItem";
 
-function PostsDisplay({ displayedPosts, seeFullPost, onClose }) {
+function PostsDisplay({ displayedPosts, seeFullPost }) {
   // console.log(displayedPosts);
   return (
     <section className="posts-display">
-      <ul>
+      <ul className="posts-display-list">
         {displayedPosts.map((post) => {
           const id = displayedPosts.indexOf(post);
 

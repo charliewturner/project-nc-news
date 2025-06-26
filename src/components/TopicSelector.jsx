@@ -7,7 +7,11 @@ function TopicSelector({ topicFiltered, setTopicFiltered }) {
       <select
         name="topic-selector"
         id="topic-selector"
-        onChange={(element) => setTopicFiltered(element.target.value)}
+        value={topicFiltered || ""}
+        onChange={(element) => {
+          let value = element.target.value;
+          setTopicFiltered(value == "" ? null : value);
+        }}
       >
         <option value="">No selection</option>
         <option value="coding">Coding</option>
