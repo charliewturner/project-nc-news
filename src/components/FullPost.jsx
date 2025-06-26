@@ -19,7 +19,7 @@ function FullPost({ displayedPosts, post, onClose }) {
           <div
             className="upvote"
             onClick={() => {
-              handlevote();
+              handleArticleVote();
             }}
           >
             ↑
@@ -28,7 +28,7 @@ function FullPost({ displayedPosts, post, onClose }) {
           <div
             className="downvote"
             onClick={() => {
-              handlevote();
+              handleArticleVote();
             }}
           >
             ↓

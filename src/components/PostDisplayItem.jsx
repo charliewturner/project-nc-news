@@ -51,7 +51,7 @@ function PostDisplayItem({
         <div
           className="upvote"
           onClick={() => {
-            handlevote();
+            handleArticleVote();
           }}
         >
           ↑
@@ -60,7 +60,7 @@ function PostDisplayItem({
         <div
           className="downvote"
           onClick={() => {
-            handlevote();
+            handleArticleVote();
           }}
         >
           ↓

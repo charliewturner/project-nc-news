@@ -22,20 +22,47 @@ function App() {
 
   const [popUpPost, setPopUpPost] = useState(null);
 
-  const [userVotes, setUserVotes] = useState({});
+  const [userArticleVotes, setUserArticleVotes] = useState({});
+
+  function handleSeeFullPost(article) {
+    setPopUpPost(article);
+  }
 
   //handle user voting function
   //store votes based on the article id to prevent double voting in popup and main window (object)
-  //check if the vote is being duplicated based on the value in the object. if yes, return before the patch/changing the FE visual
+
   //if the vote is changing, fetch the patch request from the api
   //update the post/popup with the new post value
 
   //the upvote and downvote arrows should pass plus or minus one to the vote handler
 
-  function handleSeeFullPost(article) {
-    console.log("registered click in APP jsx");
-    setPopUpPost(article);
-  }
+  const handleArticleVote = (article_id, changeVoteBy) => {
+    const currentVote = userArticleVotes[article_id];
+
+    //check if the vote is being duplicated based on the value in the object. if yes, return before the patch/changing the FE visual
+
+    if (changeVoteBy === currentVote) return;
+
+    fetch(
+      `https://project-northcoders-news.onrender.com/api/articles/${article_id}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ inc_votes: changeVoteBy - currentVote }),
+      }
+    )
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   useEffect(() => {
     const fetchAPI = async function () {
