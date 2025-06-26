@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import "./App.css";
 import TopicSelector from "./components/TopicSelector";
 import PostsDisplay from "./components/PostsDisplay";
@@ -17,12 +17,13 @@ function App() {
   );
 
   const [displayedPosts, setDisplayedPosts] = useState([]);
-
   const [topicFiltered, setTopicFiltered] = useState(null);
-
   const [popUpPost, setPopUpPost] = useState(null);
-
   const [userArticleVotes, setUserArticleVotes] = useState({});
+  const [refreshed, setRefreshed] = useState(false);
+
+  //create a new state to hold the article votes AND the user's local voting
+  // each article ID will hold its databaes vote value and the local user vote (+1/-1 etc)
 
   function handleSeeFullPost(article) {
     setPopUpPost(article);
@@ -78,7 +79,7 @@ function App() {
     };
 
     fetchAPI();
-  }, [topicFiltered]);
+  }, [topicFiltered, refreshed]);
 
   if (mainPageStatus === "error") {
     return <h1>Error loading page</h1>;
@@ -109,7 +110,10 @@ function App() {
         <FullPost
           post={popUpPost}
           displayedPosts={displayedPosts}
-          onClose={() => setPopUpPost(null)}
+          onClose={() => {
+            setPopUpPost(null);
+            setRefreshed(!refreshed);
+          }}
           handleArticleVote={handleArticleVote}
         />
       )}
