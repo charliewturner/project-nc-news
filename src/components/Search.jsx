@@ -1,7 +1,7 @@
 import SearchForm from "./SearchForm";
 
 function Search() {
-  return <h1>Search</h1>;
+  return <h3>Search by keyword</h3>;
 }
 
 export default Search;

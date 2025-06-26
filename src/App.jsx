@@ -55,7 +55,7 @@ function App() {
   return (
     <>
       <section className="main-display">
-        <section className="app-right">
+        <section className="search-newpost-container">
           <Search />
           <NewPost />
         </section>

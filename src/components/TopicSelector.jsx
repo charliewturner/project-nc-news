@@ -5,6 +5,7 @@ function TopicSelector({ topicFiltered, setTopicFiltered }) {
     <section>
       <label htmlFor="topic-selector">Filter posts by topic: </label>
       <select
+        className="topic-selector"
         name="topic-selector"
         id="topic-selector"
         value={topicFiltered || ""}

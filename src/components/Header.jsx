@@ -1,5 +1,10 @@
 function Header() {
-  return <h1>Header</h1>;
+  return (
+    <header>
+      <h3 className="sitename">NC-News</h3>
+      <h3 className="username">Username</h3>
+    </header>
+  );
 }
 
 export default Header;

@@ -67,6 +67,29 @@ button:focus-visible {
   }
 }
 
+header {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  top: -30px;
+}
+.sitename {
+}
+.username {
+  display: none;
+}
+
+.search-newpost-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.new-post-submit {
+  margin-left: 30px;
+}
+.topic-selector {
+  margin-left: 10px;
+}
 .main-display > * {
   display: flex;
   flex-direction: row;
