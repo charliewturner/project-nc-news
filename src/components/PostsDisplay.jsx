@@ -1,6 +1,11 @@
 import PostDisplayItem from "./PostDisplayItem";
 
-function PostsDisplay({ displayedPosts, seeFullPost, handleArticleVote }) {
+function PostsDisplay({
+  displayedPosts,
+  seeFullPost,
+  handleArticleVote,
+  articleVotes,
+}) {
   return (
     <section className="posts-display">
       <ul className="posts-display-list">
@@ -21,6 +26,7 @@ function PostsDisplay({ displayedPosts, seeFullPost, handleArticleVote }) {
               //   shareLink={post.shareLink}
               votes={post.votes}
               handleArticleVote={handleArticleVote}
+              articleVotes={articleVotes}
             />
           );
         })}

@@ -12,14 +12,16 @@ function PostDisplayItem({
   seeFullPost,
   shareLink,
   handleArticleVote,
+  articleVotes,
 }) {
   let formattedDate = created_at.slice(0, 10);
   formattedDate = new Date(formattedDate);
   formattedDate = formattedDate.toLocaleDateString();
 
-  //   function seeFullPost(id) {
-  //     console.log(id);
-  //   }
+  const votesInfo = articleVotes[article_id] || {
+    voteCount: votes,
+    userVote: 0,
+  };
 
   return (
     <li id={id} className="post-item">
@@ -58,7 +60,7 @@ function PostDisplayItem({
         >
           ↑
         </div>
-        <div className="voteNumber">{votes}</div>
+        <div className="voteNumber">{votesInfo.voteCount}</div>
         <div
           className="downvote"
           onClick={() => {

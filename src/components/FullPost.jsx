@@ -1,6 +1,12 @@
 import { useState } from "react";
 import CommentList from "./CommentList";
-function FullPost({ displayedPosts, post, onClose, handleArticleVote }) {
+function FullPost({
+  displayedPosts,
+  post,
+  onClose,
+  handleArticleVote,
+  articleVotes,
+}) {
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log("Comment submit attempted");
@@ -8,20 +14,9 @@ function FullPost({ displayedPosts, post, onClose, handleArticleVote }) {
 
   const formattedDate = post.created_at.slice(0, 10);
 
-  const [displayedArticleVotes, setDisplayedArticleVotes] = useState(
-    post.votes
-  );
-  const [displayedArticleVotesStatus, setDisplayedArticleVotesStatus] =
-    useState(0);
-
-  const handleDisplayedArticleVote = (value) => {
-    if (value === displayedArticleVotesStatus) return;
-
-    const voteDifference = value - displayedArticleVotesStatus;
-    setDisplayedArticleVotes((value) => value + voteDifference);
-    setDisplayedArticleVotesStatus(value);
-
-    handleArticleVote(post.article_id, value);
+  const votesInfo = articleVotes[post.article_id] || {
+    voteCount: post.votes,
+    userVote: 0,
   };
 
   return (
@@ -35,16 +30,16 @@ function FullPost({ displayedPosts, post, onClose, handleArticleVote }) {
           <div
             className="upvote"
             onClick={() => {
-              handleDisplayedArticleVote(1);
+              handleArticleVote(post.article_id, 1);
             }}
           >
             ↑
           </div>
-          <div className="voteNumber">{displayedArticleVotes}</div>
+          <div className="voteNumber">{votesInfo.voteCount}</div>
           <div
             className="downvote"
             onClick={() => {
-              handleDisplayedArticleVote(-1);
+              handleArticleVote(post.article_id, -1);
             }}
           >
             ↓

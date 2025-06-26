@@ -20,7 +20,6 @@ function App() {
   const [topicFiltered, setTopicFiltered] = useState(null);
   const [popUpPost, setPopUpPost] = useState(null);
   const [userArticleVotes, setUserArticleVotes] = useState({});
-  const [refreshed, setRefreshed] = useState(false);
 
   //create a new state to hold the article votes AND the user's local voting
   // each article ID will hold its databaes vote value and the local user vote (+1/-1 etc)
@@ -29,12 +28,36 @@ function App() {
     setPopUpPost(article);
   }
 
-  const handleArticleVote = (article_id, changeVoteBy) => {
-    const currentVote = userArticleVotes[article_id] || 0;
-    if (changeVoteBy === currentVote) return;
+  const handleArticleVote = (article_id, changeVote) => {
+    let currentVote = userArticleVotes[article_id];
 
-    const voteDifference = changeVoteBy - currentVote;
+    if (!currentVote) {
+      const requiredArticle = displayedPosts.find(
+        (article) => article.article_id === article_id
+      );
 
+      currentVote = {
+        voteCount: requiredArticle.votes || 0,
+        userVote: 0,
+      };
+    }
+
+    if (changeVote === currentVote.userVote) return;
+
+    const voteDifference = changeVote - currentVote.userVote;
+
+    setUserArticleVotes((currentVotes) => ({
+      // const updateVotes = { ...currentVotes };
+      // updateVotes[article_id] = changeVote;
+      // return updateVotes;
+      ...currentVotes,
+      [article_id]: {
+        voteCount: currentVote.voteCount + voteDifference,
+        userVote: changeVote,
+      },
+    }));
+
+    //update the visual vote number (Re-render may be less user friendly if multiple voted have occured while the user is looking at the post)
     fetch(
       `https://project-northcoders-news.onrender.com/api/articles/${article_id}`,
       {
@@ -50,14 +73,6 @@ function App() {
       })
       .then(({ data }) => {
         console.log(data);
-
-        setUserArticleVotes((currentVotes) => {
-          const updateVotes = { ...currentVotes };
-          updateVotes[article_id] = changeVoteBy;
-          return updateVotes;
-        });
-
-        //update the visual vote number (Re-render may be less user friendly if multiple voted have occured while the user is looking at the post)
       })
       .catch((error) => {
         console.log(error);
@@ -79,7 +94,7 @@ function App() {
     };
 
     fetchAPI();
-  }, [topicFiltered, refreshed]);
+  }, [topicFiltered]);
 
   if (mainPageStatus === "error") {
     return <h1>Error loading page</h1>;
@@ -103,6 +118,7 @@ function App() {
         <PostsDisplay
           displayedPosts={displayedPosts}
           seeFullPost={handleSeeFullPost}
+          articleVotes={userArticleVotes}
           handleArticleVote={handleArticleVote}
         />
       </section>
@@ -112,8 +128,8 @@ function App() {
           displayedPosts={displayedPosts}
           onClose={() => {
             setPopUpPost(null);
-            setRefreshed(!refreshed);
           }}
+          articleVotes={userArticleVotes}
           handleArticleVote={handleArticleVote}
         />
       )}
