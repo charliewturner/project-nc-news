@@ -16,9 +16,23 @@ function FullPost({ displayedPosts, post, onClose }) {
       <div className="content">
         {" "}
         <section className="pop-up-votes">
-          <div className="upvote">↑</div>
+          <div
+            className="upvote"
+            onClick={() => {
+              handlevote();
+            }}
+          >
+            ↑
+          </div>
           <div className="voteNumber">{post.votes}</div>
-          <div className="downvote">↓</div>
+          <div
+            className="downvote"
+            onClick={() => {
+              handlevote();
+            }}
+          >
+            ↓
+          </div>
         </section>
         <div className="pop-up-upper">
           <p className="pop-up-post-title">{post.title}</p>{" "}

@@ -48,9 +48,23 @@ function PostDisplayItem({
         </div>
       </section>
       <section className="post-item-right">
-        <div className="upvote">↑</div>
+        <div
+          className="upvote"
+          onClick={() => {
+            handlevote();
+          }}
+        >
+          ↑
+        </div>
         <div className="voteNumber">{votes}</div>
-        <div className="downvote">↓</div>
+        <div
+          className="downvote"
+          onClick={() => {
+            handlevote();
+          }}
+        >
+          ↓
+        </div>
       </section>
     </li>
   );
