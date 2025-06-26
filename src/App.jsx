@@ -22,6 +22,16 @@ function App() {
 
   const [popUpPost, setPopUpPost] = useState(null);
 
+  const [userVotes, setUserVotes] = useState({});
+
+  //handle user voting function
+  //store votes based on the article id to prevent double voting in popup and main window (object)
+  //check if the vote is being duplicated based on the value in the object. if yes, return before the patch/changing the FE visual
+  //if the vote is changing, fetch the patch request from the api
+  //update the post/popup with the new post value
+
+  //the upvote and downvote arrows should pass plus or minus one to the vote handler
+
   function handleSeeFullPost(article) {
     console.log("registered click in APP jsx");
     setPopUpPost(article);
