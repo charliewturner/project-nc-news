@@ -37,7 +37,7 @@ function App() {
   //the upvote and downvote arrows should pass plus or minus one to the vote handler
 
   const handleArticleVote = (article_id, changeVoteBy) => {
-    const currentVote = userArticleVotes[article_id];
+    const currentVote = userArticleVotes[article_id] || 0;
 
     //check if the vote is being duplicated based on the value in the object. if yes, return before the patch/changing the FE visual
 
@@ -113,6 +113,7 @@ function App() {
         <PostsDisplay
           displayedPosts={displayedPosts}
           seeFullPost={handleSeeFullPost}
+          handleArticleVote={handleArticleVote}
         />
       </section>
       {popUpPost && (
@@ -120,6 +121,7 @@ function App() {
           post={popUpPost}
           displayedPosts={displayedPosts}
           onClose={() => setPopUpPost(null)}
+          handleArticleVote={handleArticleVote}
         />
       )}
     </>

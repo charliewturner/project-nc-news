@@ -11,6 +11,7 @@ function PostDisplayItem({
   votes,
   seeFullPost,
   shareLink,
+  handleArticleVote,
 }) {
   let formattedDate = created_at.slice(0, 10);
   formattedDate = new Date(formattedDate);

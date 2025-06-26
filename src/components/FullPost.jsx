@@ -1,7 +1,5 @@
 import CommentList from "./CommentList";
-function FullPost({ displayedPosts, post, onClose }) {
-  //console.log(displayedPosts);
-  console.log(post);
+function FullPost({ displayedPosts, post, onClose, handleArticleVote }) {
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log("Comment submit attempted");
@@ -19,7 +17,7 @@ function FullPost({ displayedPosts, post, onClose }) {
           <div
             className="upvote"
             onClick={() => {
-              handleArticleVote();
+              handleArticleVote(post.article_id, 1);
             }}
           >
             ↑
@@ -28,7 +26,7 @@ function FullPost({ displayedPosts, post, onClose }) {
           <div
             className="downvote"
             onClick={() => {
-              handleArticleVote();
+              handleArticleVote(post.article_id, -1);
             }}
           >
             ↓

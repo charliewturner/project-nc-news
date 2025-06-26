@@ -15,8 +15,6 @@ function CommentList({ post }) {
       });
   }, [post.article_id]);
 
-  console.log(comments);
-
   return (
     <ul className="comments">
       {comments.map((comment) => {
