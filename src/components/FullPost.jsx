@@ -1,3 +1,4 @@
+import { useState } from "react";
 import CommentList from "./CommentList";
 function FullPost({ displayedPosts, post, onClose, handleArticleVote }) {
   const handleSubmit = (event) => {
@@ -6,6 +7,23 @@ function FullPost({ displayedPosts, post, onClose, handleArticleVote }) {
   };
 
   const formattedDate = post.created_at.slice(0, 10);
+
+  const [displayedArticleVotes, setDisplayedArticleVotes] = useState(
+    post.votes
+  );
+  const [displayedArticleVotesStatus, setDisplayedArticleVotesStatus] =
+    useState(0);
+
+  const handleDisplayedArticleVote = (value) => {
+    if (value === displayedArticleVotesStatus) return;
+
+    const voteDifference = value - displayedArticleVotesStatus;
+    setDisplayedArticleVotes((value) => value + voteDifference);
+    setDisplayedArticleVotesStatus(value);
+
+    handleArticleVote(post.article_id, value);
+  };
+
   return (
     <div className="full-post-pop-up">
       <div className="pop-up-close" onClick={onClose}>
@@ -17,16 +35,16 @@ function FullPost({ displayedPosts, post, onClose, handleArticleVote }) {
           <div
             className="upvote"
             onClick={() => {
-              handleArticleVote(post.article_id, 1);
+              handleDisplayedArticleVote(1);
             }}
           >
             ↑
           </div>
-          <div className="voteNumber">{post.votes}</div>
+          <div className="voteNumber">{displayedArticleVotes}</div>
           <div
             className="downvote"
             onClick={() => {
-              handleArticleVote(post.article_id, -1);
+              handleDisplayedArticleVote(-1);
             }}
           >
             ↓

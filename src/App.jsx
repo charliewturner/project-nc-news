@@ -28,19 +28,8 @@ function App() {
     setPopUpPost(article);
   }
 
-  //handle user voting function
-  //store votes based on the article id to prevent double voting in popup and main window (object)
-
-  //if the vote is changing, fetch the patch request from the api
-  //update the post/popup with the new post value
-
-  //the upvote and downvote arrows should pass plus or minus one to the vote handler
-
   const handleArticleVote = (article_id, changeVoteBy) => {
     const currentVote = userArticleVotes[article_id] || 0;
-
-    //check if the vote is being duplicated based on the value in the object. if yes, return before the patch/changing the FE visual
-
     if (changeVoteBy === currentVote) return;
 
     const voteDifference = changeVoteBy - currentVote;
@@ -60,7 +49,7 @@ function App() {
       })
       .then(({ data }) => {
         console.log(data);
-        //update the userArticleVotes object
+
         setUserArticleVotes((currentVotes) => {
           const updateVotes = { ...currentVotes };
           updateVotes[article_id] = changeVoteBy;
