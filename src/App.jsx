@@ -68,7 +68,13 @@ function App() {
           seeFullPost={handleSeeFullPost}
         />
       </section>
-      {popUpPost && <FullPost />}
+      {popUpPost && (
+        <FullPost
+          post={popUpPost}
+          displayedPosts={displayedPosts}
+          onClose={() => setPopUpPost(null)}
+        />
+      )}
     </>
   );
 }

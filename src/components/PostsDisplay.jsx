@@ -1,6 +1,6 @@
 import PostDisplayItem from "./PostDisplayItem";
 
-function PostsDisplay({ displayedPosts, seeFullPost }) {
+function PostsDisplay({ displayedPosts, seeFullPost, onClose }) {
   // console.log(displayedPosts);
   return (
     <section className="posts-display">
