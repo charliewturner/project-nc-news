@@ -71,9 +71,7 @@ function App() {
       .then((response) => {
         return response.json();
       })
-      .then(({ data }) => {
-        console.log(data);
-      })
+      .then(({ data }) => {})
       .catch((error) => {
         console.log(error);
       });
