@@ -12,7 +12,10 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
+* {
+  background-color: rgb(59, 59, 59);
+  color: white;
+}
 a {
   font-weight: 500;
   color: #646cff;
@@ -73,6 +76,7 @@ header {
   position: relative;
   top: -30px;
 }
+
 .sitename {
 }
 .username {
@@ -85,7 +89,7 @@ header {
 
 .new-post-submit,
 .keyword-search {
-  margin-left: 20px;
+  margin-left: 2px;
   margin-right: 20px;
 }
 .new-post-submit:hover {
@@ -100,18 +104,23 @@ header {
   text-shadow: 0 0 0.5px;
 }
 .topic-selector {
+  margin-left: 2px;
+  margin-right: 10px;
+}
+.topic-selector-dropdown {
   margin-left: 10px;
 }
 .main-display > * {
   display: flex;
   flex-direction: row;
-  border: solid;
+  /* border: solid; */
 }
 
 .posts-display > * {
   display: flex;
   flex-direction: column;
-  border: solid;
+  /* border: solid; */
+  padding: 0;
 }
 
 .posts-display-list > *:hover {
@@ -126,8 +135,20 @@ li {
 
 .post-item {
   display: flex;
-  border: solid;
+  margin: 3px 0;
 }
+
+.post-item,
+.post-item-left,
+.post-title,
+.post-item-center,
+.post-item-center-row,
+.post-item-center-row > *,
+.post-item-right,
+.post-item-right > * {
+  background-color: rgb(35, 35, 35);
+}
+
 .post-item-left {
   align-self: center;
   margin-left: 10px;
@@ -135,6 +156,8 @@ li {
 
 .post-image {
   width: 100px;
+
+  border: 0.3px solid rgba(255, 255, 255, 0.17);
 }
 
 .post-item-center {

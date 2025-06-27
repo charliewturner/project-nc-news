@@ -2,10 +2,10 @@ import { useState } from "react";
 
 function TopicSelector({ topicFiltered, setTopicFiltered }) {
   return (
-    <section>
+    <section className="topic-selector">
       <label htmlFor="topic-selector">Filter posts by topic: </label>
       <select
-        className="topic-selector"
+        className="topic-selector-dropdown"
         name="topic-selector"
         id="topic-selector"
         value={topicFiltered || ""}
