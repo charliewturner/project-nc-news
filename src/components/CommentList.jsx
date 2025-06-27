@@ -66,6 +66,10 @@ function CommentList({
   };
 
   const handleCommentDelete = (comment_id) => {
+    const confirmDeletion = window.confirm(
+      "Are you sure you want to delete this comment?"
+    );
+    if (!confirmDeletion) return;
     fetch(
       `https://project-northcoders-news.onrender.com/api/comments/${comment_id}`,
       {
@@ -78,6 +82,7 @@ function CommentList({
         setComments((prevComments) =>
           prevComments.filter((comment) => comment.comment_id !== comment_id)
         );
+        window.alert("Comment successfully deleted");
       })
       .catch((error) => {
         console.error(error);
