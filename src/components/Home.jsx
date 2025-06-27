@@ -48,7 +48,7 @@ function Home({
             handleArticleVote={handleArticleVote}
           />
         </section>
-        {popUpPost && (
+        {/* {popUpPost && (
           <FullPost
             post={popUpPost}
             displayedPosts={displayedPosts}
@@ -61,7 +61,7 @@ function Home({
             setUserCommentVotes={setUserCommentVotes}
             currentUser={currentUser}
           />
-        )}
+        )} */}
       </>
     </>
   );

@@ -8,9 +8,13 @@ function CommentList({
   setComments,
   currentUser,
 }) {
+  console.log(post.article.article_id);
+  // if (!comments) return;
+  // if (!post || !post.article_id) return <p>Loading comments...</p>;
+
   useEffect(() => {
     fetch(
-      `https://project-northcoders-news.onrender.com/api/articles/${post.article_id}/comments`
+      `https://project-northcoders-news.onrender.com/api/articles/${post.article.article_id}/comments`
     )
       .then((response) => {
         return response.json();
@@ -18,7 +22,7 @@ function CommentList({
       .then((data) => {
         setComments(data.comments);
       });
-  }, [post.article_id]);
+  }, [post.article.article_id]);
 
   const handleCommentVote = (comment_id, changeVote) => {
     let currentVote = userCommentVotes[comment_id];

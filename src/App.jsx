@@ -1,31 +1,29 @@
 import { use, useEffect, useState } from "react";
+import { Routes, Route } from "react-router-dom";
 import "./App.css";
 import TopicSelector from "./components/TopicSelector";
 import PostsDisplay from "./components/PostsDisplay";
 import Search from "./components/Search";
 import NewPost from "./components/NewPost";
 import getAPI from "./components/getAPI";
-import FullPost from "./components/FullPost";
+import FullPostPopUpWindow from "./components/FullPostPopUpWindow";
 import Header from "./components/Header";
+import Home from "./components/Home";
 
 function App() {
   const [count, setCount] = useState(0);
   const [mainPageStatus, setMainPageStatus] = useState("loading");
 
-  //SET INITIAL URL
   const [apiURL, setApiURL] = useState(
     `https://project-northcoders-news.onrender.com/api/articles`
   );
 
   const [displayedPosts, setDisplayedPosts] = useState([]);
   const [topicFiltered, setTopicFiltered] = useState(null);
-  const [popUpPost, setPopUpPost] = useState(null);
+
   const [userArticleVotes, setUserArticleVotes] = useState({});
   const [userCommentVotes, setUserCommentVotes] = useState({});
   const [currentUser, setCurrentUser] = useState("grumpy19");
-
-  //create a new state to hold the article votes AND the user's local voting
-  // each article ID will hold its databaes vote value and the local user vote (+1/-1 etc)
 
   function handleSeeFullPost(article) {
     setPopUpPost(article);
@@ -50,9 +48,6 @@ function App() {
     const voteDifference = changeVote - currentVote.userVote;
 
     setUserArticleVotes((currentVotes) => ({
-      // const updateVotes = { ...currentVotes };
-      // updateVotes[article_id] = changeVote;
-      // return updateVotes;
       ...currentVotes,
       [article_id]: {
         voteCount: currentVote.voteCount + voteDifference,
@@ -60,7 +55,6 @@ function App() {
       },
     }));
 
-    //update the visual vote number (Re-render may be less user friendly if multiple voted have occured while the user is looking at the post)
     fetch(
       `https://project-northcoders-news.onrender.com/api/articles/${article_id}`,
       {
@@ -106,41 +100,34 @@ function App() {
   }
 
   return (
-    <>
-      <Header currentUser={currentUser} setCurrentUser={setCurrentUser} />
-      <>
-        <section className="main-display">
-          <section className="search-newpost-container">
-            <Search />
-            {/* <NewPost /> */}
-          </section>
-          <TopicSelector
-            setTopicFiltered={setTopicFiltered}
-            topicFiltered={topicFiltered}
-          />
-          <PostsDisplay
+    <Routes>
+      <Route
+        path="/"
+        element={
+          <Home
             displayedPosts={displayedPosts}
-            seeFullPost={handleSeeFullPost}
-            articleVotes={userArticleVotes}
             handleArticleVote={handleArticleVote}
-          />
-        </section>
-        {popUpPost && (
-          <FullPost
-            post={popUpPost}
-            displayedPosts={displayedPosts}
-            onClose={() => {
-              setPopUpPost(null);
-            }}
-            articleVotes={userArticleVotes}
-            handleArticleVote={handleArticleVote}
+            userArticleVotes={userArticleVotes}
             userCommentVotes={userCommentVotes}
             setUserCommentVotes={setUserCommentVotes}
             currentUser={currentUser}
           />
-        )}
-      </>
-    </>
+        }
+      ></Route>
+      <Route
+        path="/articles/:article_id"
+        element={
+          <FullPostPopUpWindow
+            displayedPosts={displayedPosts}
+            handleArticleVote={handleArticleVote}
+            userArticleVotes={userArticleVotes}
+            userCommentVotes={userCommentVotes}
+            setUserCommentVotes={setUserCommentVotes}
+            currentUser={currentUser}
+          />
+        }
+      ></Route>
+    </Routes>
   );
 }
 

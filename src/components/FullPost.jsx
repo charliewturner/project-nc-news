@@ -15,6 +15,7 @@ function FullPost({
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
 
+  if (!post) return;
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -23,7 +24,7 @@ function FullPost({
     }
 
     fetch(
-      `https://project-northcoders-news.onrender.com/api/articles/${post.article_id}/comments`,
+      `https://project-northcoders-news.onrender.com/api/articles/${post.article.article_id}/comments`,
       {
         method: "POST",
         headers: {
@@ -56,14 +57,16 @@ function FullPost({
       });
   };
 
-  const formattedDate = post.created_at.slice(0, 10);
+  const formattedDate = new Date(post.article.created_at).toLocaleDateString();
 
-  const votesInfo = articleVotes[post.article_id] || {
-    voteCount: post.votes,
+  const votesInfo = articleVotes[post.article.article_id] || {
+    voteCount: post.article.votes,
     userVote: 0,
   };
 
   //DEFINE SHARELINK TO ALLOW FOR ARTICLE SHARING
+
+  console.log(post);
   return (
     <div className="pop-up-overlay">
       <div className="full-post-pop-up">
@@ -76,7 +79,7 @@ function FullPost({
             <div
               className={`upvote ${votesInfo.userVote === 1 ? "voted" : ""}`}
               onClick={() => {
-                handleArticleVote(post.article_id, 1);
+                handleArticleVote(post.article.article_id, 1);
               }}
             >
               ↑
@@ -85,27 +88,27 @@ function FullPost({
             <div
               className={`downvote ${votesInfo.userVote === -1 ? "voted" : ""}`}
               onClick={() => {
-                handleArticleVote(post.article_id, -1);
+                handleArticleVote(post.article.article_id, -1);
               }}
             >
               ↓
             </div>
           </section>
           <div className="pop-up-upper">
-            <p className="pop-up-post-title">{post.title}</p>{" "}
+            <p className="pop-up-post-title">{post.article.title}</p>{" "}
             <div className="post-item-center-row">
-              <p className="post-topic">Topic: {post.topic}</p>
+              <p className="post-topic">Topic: {post.article.topic}</p>
               <p className="post-date">{formattedDate} </p>
-              <p className="post-author">Posted by {post.author}</p>
+              <p className="post-author">Posted by {post.article.author}</p>
               <button
                 className="shareLinkButton"
-                onClick={() => shareLink(post.article_id)}
+                onClick={() => shareLink(post.article.article_id)}
               >
                 Share
               </button>
             </div>
           </div>
-          <div className="pop-up-body">{post.body}</div>
+          <div className="pop-up-body">{post.article.body}</div>
           <div className="pop-up-submit-comment">
             <form onSubmit={handleSubmit}>
               <input
