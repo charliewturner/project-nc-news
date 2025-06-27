@@ -6,6 +6,7 @@ import Search from "./components/Search";
 import NewPost from "./components/NewPost";
 import getAPI from "./components/getAPI";
 import FullPost from "./components/FullPost";
+import Header from "./components/Header";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -105,35 +106,38 @@ function App() {
 
   return (
     <>
-      <section className="main-display">
-        <section className="search-newpost-container">
-          <Search />
-          {/* <NewPost /> */}
+      <Header />
+      <>
+        <section className="main-display">
+          <section className="search-newpost-container">
+            <Search />
+            {/* <NewPost /> */}
+          </section>
+          <TopicSelector
+            setTopicFiltered={setTopicFiltered}
+            topicFiltered={topicFiltered}
+          />
+          <PostsDisplay
+            displayedPosts={displayedPosts}
+            seeFullPost={handleSeeFullPost}
+            articleVotes={userArticleVotes}
+            handleArticleVote={handleArticleVote}
+          />
         </section>
-        <TopicSelector
-          setTopicFiltered={setTopicFiltered}
-          topicFiltered={topicFiltered}
-        />
-        <PostsDisplay
-          displayedPosts={displayedPosts}
-          seeFullPost={handleSeeFullPost}
-          articleVotes={userArticleVotes}
-          handleArticleVote={handleArticleVote}
-        />
-      </section>
-      {popUpPost && (
-        <FullPost
-          post={popUpPost}
-          displayedPosts={displayedPosts}
-          onClose={() => {
-            setPopUpPost(null);
-          }}
-          articleVotes={userArticleVotes}
-          handleArticleVote={handleArticleVote}
-          userCommentVotes={userCommentVotes}
-          setUserCommentVotes={setUserCommentVotes}
-        />
-      )}
+        {popUpPost && (
+          <FullPost
+            post={popUpPost}
+            displayedPosts={displayedPosts}
+            onClose={() => {
+              setPopUpPost(null);
+            }}
+            articleVotes={userArticleVotes}
+            handleArticleVote={handleArticleVote}
+            userCommentVotes={userCommentVotes}
+            setUserCommentVotes={setUserCommentVotes}
+          />
+        )}
+      </>
     </>
   );
 }
