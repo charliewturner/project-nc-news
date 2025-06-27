@@ -46,14 +46,14 @@ function PostDisplayItem({
           >
             See full post
           </button>
-          <button className="shareLinkButton" onClick={() => shareLink(id)}>
+          {/* <button className="shareLinkButton" onClick={() => shareLink(id)}>
             Share link
-          </button>
+          </button> */}
         </div>
       </section>
       <section className="post-item-right">
         <div
-          className="upvote"
+          className={`upvote ${votesInfo.userVote === 1 ? "voted" : ""}`}
           onClick={() => {
             handleArticleVote(article_id, 1);
           }}
@@ -62,7 +62,7 @@ function PostDisplayItem({
         </div>
         <div className="voteNumber">{votesInfo.voteCount}</div>
         <div
-          className="downvote"
+          className={`downvote ${votesInfo.userVote === -1 ? "voted" : ""}`}
           onClick={() => {
             handleArticleVote(article_id, -1);
           }}

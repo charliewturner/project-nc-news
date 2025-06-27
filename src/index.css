@@ -209,6 +209,20 @@ li {
   font-weight: 900;
 }
 
+.upvote.voted {
+  color: green;
+  transform: scale(1.2);
+  /* transition: transform 0.15s; */
+  text-shadow: 0 0 1.5px;
+}
+
+.downvote.voted {
+  color: red;
+  transform: scale(1.2);
+  transition: transform 0.15s;
+  text-shadow: 0 0 1.5px;
+}
+
 .downvote {
   margin-top: -5px;
 }

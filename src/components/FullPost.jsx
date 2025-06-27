@@ -28,7 +28,7 @@ function FullPost({
         {" "}
         <section className="pop-up-votes">
           <div
-            className="upvote"
+            className={`upvote ${votesInfo.userVote === 1 ? "voted" : ""}`}
             onClick={() => {
               handleArticleVote(post.article_id, 1);
             }}
@@ -37,7 +37,7 @@ function FullPost({
           </div>
           <div className="voteNumber">{votesInfo.voteCount}</div>
           <div
-            className="downvote"
+            className={`downvote ${votesInfo.userVote === -1 ? "voted" : ""}`}
             onClick={() => {
               handleArticleVote(post.article_id, -1);
             }}
