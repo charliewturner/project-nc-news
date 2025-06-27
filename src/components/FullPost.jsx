@@ -1,5 +1,6 @@
 import { useState } from "react";
 import CommentList from "./CommentList";
+
 function FullPost({
   displayedPosts,
   post,
@@ -9,9 +10,47 @@ function FullPost({
   userCommentVotes,
   setUserCommentVotes,
 }) {
+  const [comments, setComments] = useState([]);
+  const [newComment, setNewComment] = useState("");
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("Comment submit attempted");
+
+    if (newComment == "") {
+      return;
+    }
+
+    fetch(
+      `https://project-northcoders-news.onrender.com/api/articles/${post.article_id}/comments`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: "grumpy19",
+          body: newComment,
+        }),
+      }
+    )
+      .then((response) => {
+        if (!response.ok) {
+          return response.json().then((error) => {
+            throw { status: response.status, ...error };
+          });
+        }
+        response.json();
+      })
+      .then((data) => {
+        console.log(data);
+        setComments((prevComments) => [data.comment, ...prevComments]);
+        setNewComment("");
+      })
+      .catch((error) => {
+        if (error.status === 500)
+          alert("Invalid username attempting to submit comment");
+        console.log(error);
+      });
   };
 
   const formattedDate = post.created_at.slice(0, 10);
@@ -59,16 +98,27 @@ function FullPost({
           </div>
         </div>
         <div className="pop-up-body">{post.body}</div>
-        <div className="pop-up-search">
+        <div className="pop-up-submit-comment">
           <form onSubmit={handleSubmit}>
-            <input type="text" placeholder="Write your comment here..." />
-            <button id="comment-submit-button">Submit comment</button>
+            <input
+              type="text"
+              placeholder="Write your comment here..."
+              value={newComment}
+              onChange={(event) => {
+                setNewComment(event.target.value);
+              }}
+            />
+            <button type="submit" id="comment-submit-button">
+              Submit comment
+            </button>
           </form>
         </div>
         <CommentList
           post={post}
           userCommentVotes={userCommentVotes}
           setUserCommentVotes={setUserCommentVotes}
+          comments={comments}
+          setComments={setComments}
         />
         {/* <div className="pop-up-comments"></div> */}
       </div>

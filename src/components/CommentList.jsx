@@ -1,8 +1,12 @@
 import { useEffect, useState } from "react";
 
-function CommentList({ post, userCommentVotes, setUserCommentVotes }) {
-  const [comments, setComments] = useState([]);
-
+function CommentList({
+  post,
+  userCommentVotes,
+  setUserCommentVotes,
+  comments,
+  setComments,
+}) {
   useEffect(() => {
     fetch(
       `https://project-northcoders-news.onrender.com/api/articles/${post.article_id}/comments`
@@ -63,6 +67,7 @@ function CommentList({ post, userCommentVotes, setUserCommentVotes }) {
   return (
     <ul className="comments">
       {comments.map((comment) => {
+        if (!comment.created_at) console.log(comment);
         let formattedDate = comment.created_at.slice(0, 10);
         const votesInfo = userCommentVotes[comment.comment_id] || {
           voteCount: comment.votes,

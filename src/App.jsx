@@ -108,7 +108,7 @@ function App() {
       <section className="main-display">
         <section className="search-newpost-container">
           <Search />
-          <NewPost />
+          {/* <NewPost /> */}
         </section>
         <TopicSelector
           setTopicFiltered={setTopicFiltered}
