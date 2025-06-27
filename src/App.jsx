@@ -1,13 +1,10 @@
 import { use, useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
-import TopicSelector from "./components/TopicSelector";
-import PostsDisplay from "./components/PostsDisplay";
-import Search from "./components/Search";
-import NewPost from "./components/NewPost";
+
 import getAPI from "./components/getAPI";
 import FullPostPopUpWindow from "./components/FullPostPopUpWindow";
-import Header from "./components/Header";
+
 import Home from "./components/Home";
 
 function App() {
@@ -111,6 +108,8 @@ function App() {
             userCommentVotes={userCommentVotes}
             setUserCommentVotes={setUserCommentVotes}
             currentUser={currentUser}
+            topicFiltered={topicFiltered}
+            setTopicFiltered={setTopicFiltered}
           />
         }
       ></Route>
