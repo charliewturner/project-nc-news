@@ -20,6 +20,7 @@ function App() {
   const [topicFiltered, setTopicFiltered] = useState(null);
   const [popUpPost, setPopUpPost] = useState(null);
   const [userArticleVotes, setUserArticleVotes] = useState({});
+  const [userCommentVotes, setUserCommentVotes] = useState({});
 
   //create a new state to hold the article votes AND the user's local voting
   // each article ID will hold its databaes vote value and the local user vote (+1/-1 etc)
@@ -129,6 +130,8 @@ function App() {
           }}
           articleVotes={userArticleVotes}
           handleArticleVote={handleArticleVote}
+          userCommentVotes={userCommentVotes}
+          setUserCommentVotes={setUserCommentVotes}
         />
       )}
     </>

@@ -6,6 +6,8 @@ function FullPost({
   onClose,
   handleArticleVote,
   articleVotes,
+  userCommentVotes,
+  setUserCommentVotes,
 }) {
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -63,7 +65,11 @@ function FullPost({
             <button id="comment-submit-button">Submit comment</button>
           </form>
         </div>
-        <CommentList post={post} />
+        <CommentList
+          post={post}
+          userCommentVotes={userCommentVotes}
+          setUserCommentVotes={setUserCommentVotes}
+        />
         {/* <div className="pop-up-comments"></div> */}
       </div>
     </div>
