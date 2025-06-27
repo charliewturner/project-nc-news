@@ -22,6 +22,7 @@ function App() {
   const [popUpPost, setPopUpPost] = useState(null);
   const [userArticleVotes, setUserArticleVotes] = useState({});
   const [userCommentVotes, setUserCommentVotes] = useState({});
+  const [currentUser, setCurrentUser] = useState("grumpy19");
 
   //create a new state to hold the article votes AND the user's local voting
   // each article ID will hold its databaes vote value and the local user vote (+1/-1 etc)
@@ -106,7 +107,7 @@ function App() {
 
   return (
     <>
-      <Header />
+      <Header currentUser={currentUser} setCurrentUser={setCurrentUser} />
       <>
         <section className="main-display">
           <section className="search-newpost-container">
@@ -135,6 +136,7 @@ function App() {
             handleArticleVote={handleArticleVote}
             userCommentVotes={userCommentVotes}
             setUserCommentVotes={setUserCommentVotes}
+            currentUser={currentUser}
           />
         )}
       </>

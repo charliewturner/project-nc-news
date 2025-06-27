@@ -9,6 +9,7 @@ function FullPost({
   articleVotes,
   userCommentVotes,
   setUserCommentVotes,
+  currentUser,
 }) {
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
@@ -28,8 +29,9 @@ function FullPost({
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          username: "grumpy19",
+          username: currentUser,
           body: newComment,
+          created_at: new Date().toISOString(),
         }),
       }
     )
@@ -39,7 +41,7 @@ function FullPost({
             throw { status: response.status, ...error };
           });
         }
-        response.json();
+        return response.json();
       })
       .then((data) => {
         console.log(data);

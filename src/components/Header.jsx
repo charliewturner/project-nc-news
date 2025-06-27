@@ -1,8 +1,11 @@
-function Header() {
+function Header({ currentUser, setCurrentUser }) {
   return (
     <header>
       <h3 className="sitename">NC-News</h3>
-      <h3 className="username">Username</h3>
+      <h3 className="username">
+        Current user:
+        <i> {currentUser}</i>
+      </h3>
     </header>
   );
 }
