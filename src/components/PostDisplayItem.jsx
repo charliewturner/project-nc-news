@@ -46,9 +46,6 @@ function PostDisplayItem({
           >
             See full post
           </button>
-          {/* <button className="shareLinkButton" onClick={() => shareLink(id)}>
-            Share link
-          </button> */}
         </div>
       </section>
       <section className="post-item-right">

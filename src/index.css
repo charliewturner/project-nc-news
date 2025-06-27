@@ -145,7 +145,13 @@ li {
 .post-item-center-row,
 .post-item-center-row > *,
 .post-item-right,
-.post-item-right > * {
+.post-item-right > *,
+.comment-container,
+.comment-body,
+.comment-container > *,
+.comment-info,
+.comment-info > *,
+.voteNumber {
   background-color: rgb(35, 35, 35);
 }
 
@@ -237,6 +243,7 @@ li {
   transform: scale(1.2);
   /* transition: transform 0.15s; */
   text-shadow: 0 0 1.5px;
+  background: none;
 }
 
 .downvote.voted {
@@ -275,7 +282,7 @@ li {
   top: 40px;
   left: 0;
   height: 80vh;
-
+  background-color: rgb(59, 59, 59);
   z-index: 2;
 }
 
@@ -296,9 +303,18 @@ li {
   position: absolute;
   top: 5px;
   right: 35px;
+  background-color: rgb(59, 59, 59);
 }
+/* background-color: rgb(35, 35, 35);
+  background-color: rgb(59, 59, 59); */
 
+.post-item-center-row-pop-up,
+.post-item-center-row-pop-up > *,
+.pop-up-voteNumber {
+  background-color: rgb(59, 59, 59);
+}
 .content {
+  background-color: rgba(255, 255, 255, 0.653);
   position: relative;
   width: 80vw;
   max-width: 1500px;
@@ -308,7 +324,7 @@ li {
   overflow-y: scroll;
 
   z-index: 3;
-  background-color: white;
+  background-color: rgb(59, 59, 59);
   border-style: solid;
   border-radius: 15px;
   box-shadow: 0 0 10px;
@@ -341,11 +357,23 @@ li {
   margin-bottom: 20px;
   width: 90%;
 }
+#comment-submit-button {
+  background-color: rgb(48, 48, 48);
+  margin-left: 30px;
+}
+
+#comment-submit-button:hover {
+  background-color: rgb(32, 32, 32);
+  margin-left: 30px;
+}
+.comments {
+  padding-left: 30px;
+}
 
 .comment-container {
   position: relative;
   display: flex;
-  border: solid;
+  margin: 3px;
   padding-top: 5px;
   margin-right: 30px;
 }

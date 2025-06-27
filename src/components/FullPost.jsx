@@ -84,7 +84,7 @@ function FullPost({
             >
               ↑
             </div>
-            <div className="voteNumber">{votesInfo.voteCount}</div>
+            <div className="pop-up-voteNumber">{votesInfo.voteCount}</div>
             <div
               className={`downvote ${votesInfo.userVote === -1 ? "voted" : ""}`}
               onClick={() => {
@@ -96,7 +96,7 @@ function FullPost({
           </section>
           <div className="pop-up-upper">
             <p className="pop-up-post-title">{post.article.title}</p>{" "}
-            <div className="post-item-center-row">
+            <div className="post-item-center-row-pop-up">
               <p className="post-topic">Topic: {post.article.topic}</p>
               <p className="post-date">{formattedDate} </p>
               <p className="post-author">Posted by {post.article.author}</p>
