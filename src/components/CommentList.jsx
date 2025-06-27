@@ -6,6 +6,7 @@ function CommentList({
   setUserCommentVotes,
   comments,
   setComments,
+  currentUser,
 }) {
   useEffect(() => {
     fetch(
@@ -64,6 +65,8 @@ function CommentList({
       });
   };
 
+  const handleCommentDelete = () => {};
+
   return (
     <ul className="comments">
       {comments.map((comment) => {
@@ -75,6 +78,16 @@ function CommentList({
         };
         return (
           <div className="comment-container">
+            {comment.author === currentUser && (
+              <div
+                className="comment-delete"
+                onClick={() => {
+                  handleCommentDelete(comment.comment_id);
+                }}
+              >
+                X
+              </div>
+            )}
             <div className="comment-main">
               <div className="comment-info">
                 <li className="comment-author">{comment.author}</li>

@@ -121,6 +121,7 @@ function FullPost({
           setUserCommentVotes={setUserCommentVotes}
           comments={comments}
           setComments={setComments}
+          currentUser={currentUser}
         />
         {/* <div className="pop-up-comments"></div> */}
       </div>
