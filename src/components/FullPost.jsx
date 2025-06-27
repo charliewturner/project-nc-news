@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import CommentList from "./CommentList";
 
 function FullPost({
@@ -62,6 +63,7 @@ function FullPost({
     userVote: 0,
   };
 
+  //DEFINE SHARELINK TO ALLOW FOR ARTICLE SHARING
   return (
     <div className="pop-up-overlay">
       <div className="full-post-pop-up">
@@ -95,7 +97,10 @@ function FullPost({
               <p className="post-topic">Topic: {post.topic}</p>
               <p className="post-date">{formattedDate} </p>
               <p className="post-author">Posted by {post.author}</p>
-              <button className="shareLinkButton" onClick={() => shareLink(id)}>
+              <button
+                className="shareLinkButton"
+                onClick={() => shareLink(post.article_id)}
+              >
                 Share
               </button>
             </div>
