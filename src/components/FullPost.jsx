@@ -63,67 +63,69 @@ function FullPost({
   };
 
   return (
-    <div className="full-post-pop-up">
-      <div className="pop-up-close" onClick={onClose}>
-        X
-      </div>
-      <div className="content">
-        {" "}
-        <section className="pop-up-votes">
-          <div
-            className={`upvote ${votesInfo.userVote === 1 ? "voted" : ""}`}
-            onClick={() => {
-              handleArticleVote(post.article_id, 1);
-            }}
-          >
-            ↑
-          </div>
-          <div className="voteNumber">{votesInfo.voteCount}</div>
-          <div
-            className={`downvote ${votesInfo.userVote === -1 ? "voted" : ""}`}
-            onClick={() => {
-              handleArticleVote(post.article_id, -1);
-            }}
-          >
-            ↓
-          </div>
-        </section>
-        <div className="pop-up-upper">
-          <p className="pop-up-post-title">{post.title}</p>{" "}
-          <div className="post-item-center-row">
-            <p className="post-topic">Topic: {post.topic}</p>
-            <p className="post-date">{formattedDate} </p>
-            <p className="post-author">Posted by {post.author}</p>
-            <button className="shareLinkButton" onClick={() => shareLink(id)}>
-              Share
-            </button>
-          </div>
+    <div className="pop-up-overlay">
+      <div className="full-post-pop-up">
+        <div className="pop-up-close" onClick={onClose}>
+          X
         </div>
-        <div className="pop-up-body">{post.body}</div>
-        <div className="pop-up-submit-comment">
-          <form onSubmit={handleSubmit}>
-            <input
-              type="text"
-              placeholder="Write your comment here..."
-              value={newComment}
-              onChange={(event) => {
-                setNewComment(event.target.value);
+        <div className="content">
+          {" "}
+          <section className="pop-up-votes">
+            <div
+              className={`upvote ${votesInfo.userVote === 1 ? "voted" : ""}`}
+              onClick={() => {
+                handleArticleVote(post.article_id, 1);
               }}
-            />
-            <button type="submit" id="comment-submit-button">
-              Submit comment
-            </button>
-          </form>
+            >
+              ↑
+            </div>
+            <div className="voteNumber">{votesInfo.voteCount}</div>
+            <div
+              className={`downvote ${votesInfo.userVote === -1 ? "voted" : ""}`}
+              onClick={() => {
+                handleArticleVote(post.article_id, -1);
+              }}
+            >
+              ↓
+            </div>
+          </section>
+          <div className="pop-up-upper">
+            <p className="pop-up-post-title">{post.title}</p>{" "}
+            <div className="post-item-center-row">
+              <p className="post-topic">Topic: {post.topic}</p>
+              <p className="post-date">{formattedDate} </p>
+              <p className="post-author">Posted by {post.author}</p>
+              <button className="shareLinkButton" onClick={() => shareLink(id)}>
+                Share
+              </button>
+            </div>
+          </div>
+          <div className="pop-up-body">{post.body}</div>
+          <div className="pop-up-submit-comment">
+            <form onSubmit={handleSubmit}>
+              <input
+                type="text"
+                placeholder="Write your comment here..."
+                value={newComment}
+                onChange={(event) => {
+                  setNewComment(event.target.value);
+                }}
+              />
+              <button type="submit" id="comment-submit-button">
+                Submit comment
+              </button>
+            </form>
+          </div>
+          <CommentList
+            post={post}
+            userCommentVotes={userCommentVotes}
+            setUserCommentVotes={setUserCommentVotes}
+            comments={comments}
+            setComments={setComments}
+            currentUser={currentUser}
+          />
+          {/* <div className="pop-up-comments"></div> */}
         </div>
-        <CommentList
-          post={post}
-          userCommentVotes={userCommentVotes}
-          setUserCommentVotes={setUserCommentVotes}
-          comments={comments}
-          setComments={setComments}
-          currentUser={currentUser}
-        />
-        {/* <div className="pop-up-comments"></div> */}
       </div>
     </div>
   );

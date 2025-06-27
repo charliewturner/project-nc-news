@@ -65,7 +65,25 @@ function CommentList({
       });
   };
 
-  const handleCommentDelete = () => {};
+  const handleCommentDelete = (comment_id) => {
+    fetch(
+      `https://project-northcoders-news.onrender.com/api/comments/${comment_id}`,
+      {
+        method: "DELETE",
+      }
+    )
+      .then((response) => {
+        if (!response.ok)
+          throw new Error("There was a problem deleting your comment.");
+        setComments((prevComments) =>
+          prevComments.filter((comment) => comment.comment_id !== comment_id)
+        );
+      })
+      .catch((error) => {
+        console.error(error);
+        alert("There was a problem deleting your comment.");
+      });
+  };
 
   return (
     <ul className="comments">
@@ -77,21 +95,21 @@ function CommentList({
           userVote: 0,
         };
         return (
-          <div className="comment-container">
-            {comment.author === currentUser && (
-              <div
-                className="comment-delete"
-                onClick={() => {
-                  handleCommentDelete(comment.comment_id);
-                }}
-              >
-                X
-              </div>
-            )}
+          <div className="comment-container" key={comment.comment_id}>
             <div className="comment-main">
               <div className="comment-info">
                 <li className="comment-author">{comment.author}</li>
                 <li className="comment-date">{formattedDate}</li>
+                {comment.author === currentUser && (
+                  <div
+                    className="comment-delete"
+                    onClick={() => {
+                      handleCommentDelete(comment.comment_id);
+                    }}
+                  >
+                    Delete
+                  </div>
+                )}
               </div>
               <li className="comment-body">{comment.body}</li>
             </div>
