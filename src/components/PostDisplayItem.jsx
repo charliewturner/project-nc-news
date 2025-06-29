@@ -44,14 +44,7 @@ function PostDisplayItem({
           <p className="post-topic">Topic: {topic}</p>
           <p className="post-date">{formattedDate} </p>
           <p className="post-author">Posted by {author}</p>
-          {/* <button
-            className="seeFullPostButton"
-            onClick={() => {
-              seeFullPost();
-            }}
-          >
-            See full post
-          </button> */}
+
           <p className="post-comment-count">Comments: {comment_count}</p>
         </div>
       </section>

@@ -26,12 +26,9 @@ function Home({
   useEffect(() => {
     let posts = [...fetchedArticles];
 
-    //if topic is filtered, filter the posts by that
     if (topicFiltered) {
       posts = posts.filter((post) => post.topic === topicFiltered);
     }
-    //sort the filtered posts
-    //if sortBy is 'date', sort by data, etc.
 
     posts.sort((a, b) => {
       let valueA, valueB;
@@ -57,9 +54,7 @@ function Home({
       return 0;
     });
 
-    //set displayed posts to filtered and sorted array
     setDisplayedPosts(posts);
-    //rerender based on changes to fetchedArticles, topicFiltered, sortBy, sortOrder
   }, [fetchedArticles, sortBy, sortOrder, topicFiltered]);
 
   return (
