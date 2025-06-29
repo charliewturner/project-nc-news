@@ -62,9 +62,9 @@ function Home({
       <Header currentUser={currentUser} setCurrentUser={setCurrentUser} />
       <>
         <section className="main-display">
-          <section className="search-newpost-container">
+          {/* <section className="search-newpost-container">
             <Search />
-          </section>
+          </section> */}
           <FilterControls
             setTopicFiltered={setTopicFiltered}
             topicFiltered={topicFiltered}
