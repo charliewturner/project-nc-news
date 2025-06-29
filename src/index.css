@@ -349,8 +349,8 @@ li {
   width: 80vw;
   max-width: 1500px;
 
-  height: 90vw;
-  max-height: 90vw;
+  height: 85vh;
+
   overflow-y: scroll;
 
   z-index: 3;
