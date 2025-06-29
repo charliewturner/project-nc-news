@@ -11,7 +11,7 @@ function PostsDisplay({
       <ul className="posts-display-list">
         {displayedPosts.map((post) => {
           const id = displayedPosts.indexOf(post);
-
+          console.log(post);
           return (
             <PostDisplayItem
               key={post.article_id}
@@ -22,6 +22,7 @@ function PostsDisplay({
               topic={post.topic}
               created_at={post.created_at}
               author={post.author}
+              comment_count={post.comment_count}
               seeFullPost={() => seeFullPost(post)}
               //   shareLink={post.shareLink}
               votes={post.votes}

@@ -10,7 +10,7 @@ function PostDisplayItem({
   author,
   votes,
   seeFullPost,
-  shareLink,
+  comment_count,
   handleArticleVote,
   articleVotes,
 }) {
@@ -24,7 +24,13 @@ function PostDisplayItem({
   };
 
   return (
-    <li id={id} className="post-item">
+    <li
+      id={id}
+      className="post-item"
+      onClick={() => {
+        seeFullPost();
+      }}
+    >
       <section className="post-item-left">
         <img
           className="post-image"
@@ -38,14 +44,15 @@ function PostDisplayItem({
           <p className="post-topic">Topic: {topic}</p>
           <p className="post-date">{formattedDate} </p>
           <p className="post-author">Posted by {author}</p>
-          <button
+          {/* <button
             className="seeFullPostButton"
             onClick={() => {
               seeFullPost();
             }}
           >
             See full post
-          </button>
+          </button> */}
+          <p className="post-comment-count">Comments: {comment_count}</p>
         </div>
       </section>
       <section className="post-item-right">
