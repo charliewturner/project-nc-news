@@ -34,14 +34,12 @@ function FilterControls({
         id="sort-by"
         value={sortBy}
         onChange={(element) => {
-          let value = element.target.value;
-          setSortBy(value == "" ? null : value);
+          setSortBy(element.target.value);
         }}
       >
-        <option value="">No selection</option>
+        <option value="date">Date</option>
         <option value="votes">Votes</option>
         <option value="comment_count">Comments</option>
-        <option value="date">Date</option>
       </select>
 
       <label htmlFor="order-by">Order: </label>
@@ -51,8 +49,7 @@ function FilterControls({
         id="order-by"
         value={sortOrder}
         onChange={(element) => {
-          let value = element.target.value;
-          setSortOrder(value == "" ? null : value);
+          setSortOrder(element.target.value);
         }}
       >
         {" "}

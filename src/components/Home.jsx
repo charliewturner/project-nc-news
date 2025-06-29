@@ -51,7 +51,7 @@ function Home({
       }
 
       if (valueA > valueB) {
-        return sortOrder === "desc" ? 1 : -1;
+        return sortOrder === "asc" ? 1 : -1;
       }
 
       return 0;
