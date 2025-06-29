@@ -105,10 +105,19 @@ header {
 }
 .topic-selector {
   margin-left: 2px;
-  margin-right: 10px;
+}
+
+.sort-by-label,
+.order-by-label {
+  margin-left: 12px;
+}
+
+.sort-by-dropdown,
+.order-by-dropdown {
+  margin-left: 5px;
 }
 .topic-selector-dropdown {
-  margin-left: 10px;
+  margin-left: 5px;
 }
 .main-display > * {
   display: flex;
@@ -184,6 +193,16 @@ li {
 
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.post-title:hover {
+  transform: scale(1.01);
+  transition: transform 0.1s;
+  text-shadow: #ffffff;
+  /* text-shadow: 0 0 0.5px; */
+  font-weight: 700;
+
+  cursor: grab;
 }
 .post-item-center-row {
   /* border: solid; */

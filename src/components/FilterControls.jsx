@@ -27,7 +27,9 @@ function FilterControls({
         <option value="cooking">Cooking</option>
       </select>
 
-      <label htmlFor="sort-by">Sort by: </label>
+      <label htmlFor="sort-by" className="sort-by-label">
+        Sort by:{" "}
+      </label>
       <select
         className="sort-by-dropdown"
         name="sort-by"
@@ -42,7 +44,9 @@ function FilterControls({
         <option value="comment_count">Comments</option>
       </select>
 
-      <label htmlFor="order-by">Order: </label>
+      <label htmlFor="order-by" className="order-by-label">
+        Order:{" "}
+      </label>
       <select
         className="order-by-dropdown"
         name="order-by"
