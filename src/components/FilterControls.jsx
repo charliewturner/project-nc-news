@@ -1,6 +1,13 @@
 import { useState } from "react";
 
-function TopicSelector({ topicFiltered, setTopicFiltered }) {
+function FilterControls({
+  topicFiltered,
+  setTopicFiltered,
+  sortBy,
+  setSortBy,
+  sortOrder,
+  setSortOrder,
+}) {
   return (
     <section className="topic-selector">
       <label htmlFor="topic-selector">Filter posts by topic: </label>
@@ -23,4 +30,4 @@ function TopicSelector({ topicFiltered, setTopicFiltered }) {
   );
 }
 
-export default TopicSelector;
+export default FilterControls;
