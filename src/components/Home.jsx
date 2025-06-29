@@ -35,7 +35,7 @@ function Home({
       if (sortBy === "date") {
         valueA = new Date(a.created_at);
         valueB = new Date(b.created_at);
-      } else if (sortBy === "comment count") {
+      } else if (sortBy === "comment_count") {
         valueA = a.comment_count;
         valueB = b.comment_count;
       } else if (sortBy === "votes") {

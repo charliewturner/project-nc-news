@@ -11,7 +11,7 @@ function PostsDisplay({
       <ul className="posts-display-list">
         {displayedPosts.map((post) => {
           const id = displayedPosts.indexOf(post);
-          console.log(post);
+
           return (
             <PostDisplayItem
               key={post.article_id}

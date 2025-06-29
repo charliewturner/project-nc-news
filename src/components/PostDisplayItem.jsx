@@ -42,10 +42,9 @@ function PostDisplayItem({
         <p className="post-title">{title}</p>
         <div className="post-item-center-row">
           <p className="post-topic">Topic: {topic}</p>
-          <p className="post-date">{formattedDate} </p>
-          <p className="post-author">Posted by {author}</p>
-
+          <p className="post-date">{formattedDate} </p>{" "}
           <p className="post-comment-count">Comments: {comment_count}</p>
+          <p className="post-author">Posted by {author}</p>
         </div>
       </section>
       <section className="post-item-right">
