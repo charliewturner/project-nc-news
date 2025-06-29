@@ -308,6 +308,17 @@ li {
 /* background-color: rgb(35, 35, 35);
   background-color: rgb(59, 59, 59); */
 
+.post-item-center-row-pop-up {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.post-item-center-row-pop-up > * {
+  justify-content: center;
+  align-items: center;
+  margin-left: 10px;
+}
+
 .post-item-center-row-pop-up,
 .post-item-center-row-pop-up > *,
 .pop-up-voteNumber {
@@ -342,6 +353,7 @@ li {
   text-align: start;
   margin-left: 10px;
   margin-top: 15px;
+
   font-size: x-large;
   font-weight: 700;
   display: -webkit-box;
