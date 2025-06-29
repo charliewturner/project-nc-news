@@ -32,7 +32,6 @@ function Home({
         <section className="main-display">
           <section className="search-newpost-container">
             <Search />
-            {/* <NewPost /> */}
           </section>
           <TopicSelector
             setTopicFiltered={setTopicFiltered}

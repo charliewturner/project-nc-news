@@ -14,8 +14,6 @@ function FullPostPopUpWindow({
   const navigate = useNavigate();
   const [popUpPost, setPopUpPost] = useState(null);
 
-  //fetch the post and set the post data to the fetched if successful
-
   useEffect(() => {
     fetch(
       `https://project-northcoders-news.onrender.com/api/articles/${article_id}`
@@ -40,7 +38,6 @@ function FullPostPopUpWindow({
       setUserCommentVotes={setUserCommentVotes}
       currentUser={currentUser}
       onClose={() => navigate("/")}
-      //reset the navigation when we close the popup
     />
   );
 }

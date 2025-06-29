@@ -64,8 +64,6 @@ function FullPost({
     userVote: 0,
   };
 
-  //DEFINE SHARELINK TO ALLOW FOR ARTICLE SHARING
-
   console.log(post);
   return (
     <div className="pop-up-overlay">
@@ -100,12 +98,6 @@ function FullPost({
               <p className="post-topic">Topic: {post.article.topic}</p>
               <p className="post-date">{formattedDate} </p>
               <p className="post-author">Posted by {post.article.author}</p>
-              <button
-                className="shareLinkButton"
-                onClick={() => shareLink(post.article.article_id)}
-              >
-                Share
-              </button>
             </div>
           </div>
           <div className="pop-up-body">{post.article.body}</div>
@@ -132,7 +124,6 @@ function FullPost({
             setComments={setComments}
             currentUser={currentUser}
           />
-          {/* <div className="pop-up-comments"></div> */}
         </div>
       </div>
     </div>
