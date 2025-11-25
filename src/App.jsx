@@ -4,21 +4,25 @@ import "./App.css";
 
 import getAPI from "./components/getAPI";
 import FullPostPopUpWindow from "./components/FullPostPopUpWindow";
-
 import Home from "./components/Home";
+import Login from "./components/Login"; // ⬅ new import
 
 function App() {
   const [mainPageStatus, setMainPageStatus] = useState("loading");
 
   const [apiURL, setApiURL] = useState(
-    `https://project-northcoders-news.onrender.com/api/articles`
+    "https://project-northcoders-news.onrender.com/api/articles"
   );
 
   const [fetchedArticles, setFetchedArticles] = useState([]);
 
   const [userArticleVotes, setUserArticleVotes] = useState({});
   const [userCommentVotes, setUserCommentVotes] = useState({});
-  const [currentUser, setCurrentUser] = useState("grumpy19");
+
+  // ⬇ changed from hardcoded "grumpy19" to value from localStorage (or null)
+  const [currentUser, setCurrentUser] = useState(() => {
+    return localStorage.getItem("nc_news_user") || null;
+  });
 
   const handleArticleVote = (article_id, changeVote) => {
     let currentVote = userArticleVotes[article_id];
@@ -59,7 +63,7 @@ function App() {
       .then((response) => {
         return response.json();
       })
-      .then(({ data }) => {})
+      .then(() => {})
       .catch((error) => {
         console.log(error);
       });
@@ -69,7 +73,6 @@ function App() {
     const fetchAPI = async function () {
       setMainPageStatus("loading");
       try {
-        // const url = topicFiltered ? apiURL + `?topic=${topicFiltered}` : apiURL;
         const data = await getAPI(apiURL);
         const { articles } = data;
         setFetchedArticles(articles);
@@ -102,9 +105,10 @@ function App() {
             userCommentVotes={userCommentVotes}
             setUserCommentVotes={setUserCommentVotes}
             currentUser={currentUser}
+            setCurrentUser={setCurrentUser}
           />
         }
-      ></Route>
+      />
       <Route
         path="/articles/:article_id"
         element={
@@ -117,7 +121,12 @@ function App() {
             currentUser={currentUser}
           />
         }
-      ></Route>
+      />
+      {/* new login route */}
+      <Route
+        path="/login"
+        element={<Login setCurrentUser={setCurrentUser} />}
+      />
     </Routes>
   );
 }
