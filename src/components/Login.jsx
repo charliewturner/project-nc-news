@@ -1,47 +1,46 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const API_ROOT = "https://project-northcoders-news.onrender.com/api";
 
 function Login({ setCurrentUser }) {
-  const [users, setUsers] = useState([]);
-  const [selectedUsername, setSelectedUsername] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    fetch(`${API_ROOT}/users`)
-      .then((res) => {
-        if (!res.ok) throw new Error("Failed to load users");
-        return res.json();
-      })
-      .then(({ users }) => {
-        setUsers(users);
-      })
-      .catch(() => {
-        setError("Failed to load users");
-      });
-  }, []);
-
   const handleSubmit = (event) => {
     event.preventDefault();
+    setError("");
 
-    if (!selectedUsername) return;
-
-    setCurrentUser(selectedUsername);
-    localStorage.setItem("nc_news_user", selectedUsername);
-
-    navigate("/"); // redirect after login
+    fetch(`${API_ROOT}/login`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username, password }),
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Invalid username or password");
+        }
+        return res.json();
+      })
+      .then(({ user }) => {
+        setCurrentUser(user.username);
+        localStorage.setItem("nc_news_user", user.username);
+        navigate("/");
+      })
+      .catch(() => {
+        setError("Invalid username or password");
+      });
   };
 
   const handleClose = () => {
-    navigate("/"); // or navigate(-1) if you prefer
+    navigate("/");
   };
 
   return (
     <main className="login-page" style={{ position: "relative" }}>
-      {/* X button */}
       <button
         onClick={handleClose}
         style={{
@@ -58,26 +57,34 @@ function Login({ setCurrentUser }) {
       </button>
 
       <h2>Log in</h2>
-      {error && <p>{error}</p>}
+
+      <p style={{ fontSize: "0.9rem", opacity: 0.8 }}>
+        Demo login credentials: <code>demo_account / demo123</code> .
+      </p>
+
+      {error && <p style={{ color: "red" }}>{error}</p>}
 
       <form onSubmit={handleSubmit}>
-        <label htmlFor="user-select">Choose a user</label>
-        <select
-          id="user-select"
-          value={selectedUsername}
-          onChange={(event) => setSelectedUsername(event.target.value)}
-        >
-          <option value="">Select a user</option>
-          {users.map((user) => (
-            <option key={user.username} value={user.username}>
-              {user.username}
-            </option>
-          ))}
-        </select>
+        <label>
+          Username
+          <input
+            value={username}
+            onChange={(event) => setUsername(event.target.value)}
+            required
+          />
+        </label>
 
-        <button type="submit" disabled={!selectedUsername}>
-          Log in
-        </button>
+        <label>
+          Password
+          <input
+            type="password"
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+            required
+          />
+        </label>
+
+        <button type="submit">Log in</button>
       </form>
     </main>
   );
