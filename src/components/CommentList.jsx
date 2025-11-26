@@ -7,6 +7,7 @@ function CommentList({
   comments,
   setComments,
   currentUser,
+  handleCommentVote,
 }) {
   console.log(post.article.article_id);
   // if (!comments) return;
@@ -24,50 +25,87 @@ function CommentList({
       });
   }, [post.article.article_id]);
 
-  const handleCommentVote = (comment_id, changeVote) => {
-    let currentVote = userCommentVotes[comment_id];
-
-    if (!currentVote) {
-      const requiredComment = comments.find(
-        (article) => article.comment_id === comment_id
-      );
-
-      currentVote = {
-        voteCount: requiredComment.votes || 0,
-        userVote: 0,
-      };
-    }
-
-    if (changeVote === currentVote.userVote) return;
-
-    const voteDifference = changeVote - currentVote.userVote;
-
-    setUserCommentVotes((currentVotes) => ({
-      ...currentVotes,
-      [comment_id]: {
-        voteCount: currentVote.voteCount + voteDifference,
-        userVote: changeVote,
-      },
-    }));
+  useEffect(() => {
+    if (!currentUser) return;
+    if (!comments || comments.length === 0) return;
 
     fetch(
-      `https://project-northcoders-news.onrender.com/api/comments/${comment_id}`,
-      {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ inc_votes: voteDifference }),
-      }
+      `https://project-northcoders-news.onrender.com/api/users/${currentUser}/comment-votes`
     )
-      .then((response) => {
-        return response.json();
+      .then((res) => res.json())
+      .then(({ votes }) => {
+        setUserCommentVotes((prev) => {
+          const map = { ...prev };
+
+          // Ensure each comment has a baseline entry
+          comments.forEach((comment) => {
+            if (!map[comment.comment_id]) {
+              map[comment.comment_id] = {
+                voteCount: comment.votes,
+                userVote: 0,
+              };
+            }
+          });
+
+          // Overlay this user's votes
+          votes.forEach(({ comment_id, vote }) => {
+            if (map[comment_id]) {
+              map[comment_id].userVote = vote;
+            }
+          });
+
+          return map;
+        });
       })
-      .then(({ data }) => {})
-      .catch((error) => {
-        console.log(error);
+      .catch((err) => {
+        console.log(err);
       });
-  };
+  }, [currentUser, comments, setUserCommentVotes]);
+
+  // const handleCommentVote = (comment_id, changeVote) => {
+  //   let currentVote = userCommentVotes[comment_id];
+
+  //   if (!currentVote) {
+  //     const requiredComment = comments.find(
+  //       (article) => article.comment_id === comment_id
+  //     );
+
+  //     currentVote = {
+  //       voteCount: requiredComment.votes || 0,
+  //       userVote: 0,
+  //     };
+  //   }
+
+  //   if (changeVote === currentVote.userVote) return;
+
+  //   const voteDifference = changeVote - currentVote.userVote;
+
+  //   setUserCommentVotes((currentVotes) => ({
+  //     ...currentVotes,
+  //     [comment_id]: {
+  //       voteCount: currentVote.voteCount + voteDifference,
+  //       userVote: changeVote,
+  //     },
+  //   }));
+
+  //   fetch(
+  //     `https://project-northcoders-news.onrender.com/api/comments/${comment_id}`,
+  //     {
+  //       method: "PATCH",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({ inc_votes: voteDifference }),
+  //     }
+  //   )
+  //     .then((response) => {
+  //       return response.json();
+  //     })
+  //     .then(({ data }) => {})
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // };
 
   const handleCommentDelete = (comment_id) => {
     const confirmDeletion = window.confirm(

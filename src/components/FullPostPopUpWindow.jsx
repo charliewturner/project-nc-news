@@ -36,6 +36,7 @@ function FullPostPopUpWindow({
       articleVotes={userArticleVotes}
       userCommentVotes={userCommentVotes}
       setUserCommentVotes={setUserCommentVotes}
+      handleCommentVote={handleCommentVote}
       currentUser={currentUser}
       onClose={() => navigate("/")}
     />

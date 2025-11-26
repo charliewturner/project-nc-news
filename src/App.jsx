@@ -156,6 +156,66 @@ function App() {
       });
   }, [currentUser, fetchedArticles]);
 
+  const handleCommentVote = (comment_id, newUserVote) => {
+    if (!currentUser) {
+      alert("You must be logged in to vote.");
+      return;
+    }
+
+    let currentVote = userCommentVotes[comment_id];
+
+    if (!currentVote) {
+      // we don't have comment data here, so default to 0 then backend will sync
+      currentVote = {
+        voteCount: 0,
+        userVote: 0,
+      };
+    }
+
+    if (newUserVote === currentVote.userVote) {
+      newUserVote = 0;
+    }
+
+    const diff = newUserVote - currentVote.userVote;
+
+    setUserCommentVotes((currentVotes) => ({
+      ...currentVotes,
+      [comment_id]: {
+        voteCount: currentVote.voteCount + diff,
+        userVote: newUserVote,
+      },
+    }));
+
+    fetch(
+      `https://project-northcoders-news.onrender.com/api/comments/${comment_id}`,
+      {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username: currentUser, vote: newUserVote }),
+      }
+    )
+      .then((response) => {
+        if (!response.ok) throw new Error("Comment vote failed");
+        return response.json();
+      })
+      .then(({ comment }) => {
+        setUserCommentVotes((currentVotes) => ({
+          ...currentVotes,
+          [comment_id]: {
+            ...currentVotes[comment_id],
+            voteCount: comment.votes,
+          },
+        }));
+      })
+      .catch((error) => {
+        console.log(error);
+        setUserCommentVotes((currentVotes) => ({
+          ...currentVotes,
+          [comment_id]: currentVote,
+        }));
+      });
+  };
+
   if (mainPageStatus === "error") {
     return <h1>Error loading page</h1>;
   }
@@ -189,6 +249,7 @@ function App() {
             userArticleVotes={userArticleVotes}
             userCommentVotes={userCommentVotes}
             setUserCommentVotes={setUserCommentVotes}
+            handleCommentVote={handleCommentVote}
             currentUser={currentUser}
           />
         }

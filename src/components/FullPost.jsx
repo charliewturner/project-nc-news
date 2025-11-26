@@ -16,6 +16,79 @@ function FullPost({
   const [newComment, setNewComment] = useState("");
 
   if (!post) return;
+
+  const handleCommentVote = (comment_id, newUserVote) => {
+    if (!currentUser) {
+      alert("You must be logged in to vote on comments.");
+      return;
+    }
+
+    let currentVote = userCommentVotes[comment_id];
+
+    if (!currentVote) {
+      const requiredComment = comments.find(
+        (comment) => comment.comment_id === comment_id
+      );
+
+      currentVote = {
+        voteCount: requiredComment ? requiredComment.votes || 0 : 0,
+        userVote: 0,
+      };
+    }
+
+    // clicking same vote again clears it
+    if (newUserVote === currentVote.userVote) {
+      newUserVote = 0;
+    }
+
+    const diff = newUserVote - currentVote.userVote;
+
+    // optimistic UI update
+    setUserCommentVotes((currentVotes) => ({
+      ...currentVotes,
+      [comment_id]: {
+        voteCount: currentVote.voteCount + diff,
+        userVote: newUserVote,
+      },
+    }));
+
+    fetch(
+      `https://project-northcoders-news.onrender.com/api/comments/${comment_id}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: currentUser,
+          vote: newUserVote, // -1, 0, or 1
+        }),
+      }
+    )
+      .then((response) => {
+        if (!response.ok) throw new Error("Comment vote failed");
+        return response.json();
+      })
+      .then(({ comment }) => {
+        // sync with backend total
+        setUserCommentVotes((currentVotes) => ({
+          ...currentVotes,
+          [comment_id]: {
+            ...currentVotes[comment_id],
+            voteCount: comment.votes,
+          },
+        }));
+      })
+      .catch((error) => {
+        console.log(error);
+        // rollback optimistic update
+        setUserCommentVotes((currentVotes) => ({
+          ...currentVotes,
+          [comment_id]: currentVote,
+        }));
+      });
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -120,6 +193,7 @@ function FullPost({
             post={post}
             userCommentVotes={userCommentVotes}
             setUserCommentVotes={setUserCommentVotes}
+            handleCommentVote={handleCommentVote}
             comments={comments}
             setComments={setComments}
             currentUser={currentUser}
