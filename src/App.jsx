@@ -24,7 +24,12 @@ function App() {
     return localStorage.getItem("nc_news_user") || null;
   });
 
-  const handleArticleVote = (article_id, changeVote) => {
+  const handleArticleVote = (article_id, newUserVote) => {
+    if (!currentUser) {
+      alert("You must be logged in to vote.");
+      return;
+    }
+
     let currentVote = userArticleVotes[article_id];
 
     if (!currentVote) {
@@ -33,20 +38,24 @@ function App() {
       );
 
       currentVote = {
-        voteCount: requiredArticle.votes || 0,
+        voteCount: requiredArticle ? requiredArticle.votes || 0 : 0,
         userVote: 0,
       };
     }
 
-    if (changeVote === currentVote.userVote) return;
+    // Optional: clicking the same vote again removes your vote (set to 0)
+    if (newUserVote === currentVote.userVote) {
+      newUserVote = 0;
+    }
 
-    const voteDifference = changeVote - currentVote.userVote;
+    const diff = newUserVote - currentVote.userVote;
 
+    // optimistic UI update
     setUserArticleVotes((currentVotes) => ({
       ...currentVotes,
       [article_id]: {
-        voteCount: currentVote.voteCount + voteDifference,
-        userVote: changeVote,
+        voteCount: currentVote.voteCount + diff,
+        userVote: newUserVote,
       },
     }));
 
@@ -57,15 +66,33 @@ function App() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ inc_votes: voteDifference }),
+        body: JSON.stringify({
+          username: currentUser,
+          vote: newUserVote, // -1, 0, or 1
+        }),
       }
     )
       .then((response) => {
+        if (!response.ok) throw new Error("Vote failed");
         return response.json();
       })
-      .then(() => {})
+      .then(({ article }) => {
+        // optional: sync with backend total in case of drift
+        setUserArticleVotes((currentVotes) => ({
+          ...currentVotes,
+          [article_id]: {
+            ...currentVotes[article_id],
+            voteCount: article.votes,
+          },
+        }));
+      })
       .catch((error) => {
         console.log(error);
+        // rollback optimistic update on error
+        setUserArticleVotes((currentVotes) => ({
+          ...currentVotes,
+          [article_id]: currentVote,
+        }));
       });
   };
 
