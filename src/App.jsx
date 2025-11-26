@@ -112,6 +112,50 @@ function App() {
     fetchAPI();
   }, []);
 
+  useEffect(() => {
+    // if not logged in, clear vote state
+    if (!currentUser) {
+      setUserArticleVotes({});
+      return;
+    }
+
+    // if articles are not loaded yet, don't fetch votes
+    if (!fetchedArticles || fetchedArticles.length === 0) return;
+
+    fetch(
+      `https://project-northcoders-news.onrender.com/api/users/${currentUser}/article-votes`
+    )
+      .then((res) => {
+        if (!res.ok) throw new Error("Failed to load user votes");
+        return res.json();
+      })
+      .then(({ votes }) => {
+        // votes: [{ article_id, vote }]
+        const voteMap = {};
+
+        // start with article totals from backend
+        fetchedArticles.forEach((article) => {
+          voteMap[article.article_id] = {
+            voteCount: article.votes,
+            userVote: 0,
+          };
+        });
+
+        // overlay user's own votes
+        votes.forEach(({ article_id, vote }) => {
+          if (voteMap[article_id]) {
+            voteMap[article_id].userVote = vote;
+          }
+        });
+
+        setUserArticleVotes(voteMap);
+      })
+      .catch((err) => {
+        console.log(err);
+        // you can optionally set some error state here
+      });
+  }, [currentUser, fetchedArticles]);
+
   if (mainPageStatus === "error") {
     return <h1>Error loading page</h1>;
   }
