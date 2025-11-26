@@ -8,6 +8,7 @@ function FullPostPopUpWindow({
   userArticleVotes,
   userCommentVotes,
   setUserCommentVotes,
+  handleCommentVote,
   currentUser,
 }) {
   const { article_id } = useParams();
