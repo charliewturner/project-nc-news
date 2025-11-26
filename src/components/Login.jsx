@@ -84,7 +84,20 @@ function Login({ setCurrentUser }) {
           />
         </label>
 
-        <button type="submit">Log in</button>
+        <button
+          style={{
+            backgroundColor: "black",
+            color: "white",
+            padding: "6px 12px",
+            borderRadius: "6px",
+            border: "none",
+            cursor: "pointer",
+            marginLeft: "10px",
+          }}
+          type="submit"
+        >
+          Log in
+        </button>
       </form>
     </main>
   );
