@@ -12,7 +12,14 @@ function Header({ currentUser, setCurrentUser }) {
 
       <div className="user-section">
         {currentUser ? (
-          <>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              gap: "15px",
+            }}
+          >
             <h3 className="username">
               Current user: <i>{currentUser}</i>
             </h3>
@@ -29,9 +36,16 @@ function Header({ currentUser, setCurrentUser }) {
             >
               Logout
             </button>
-          </>
+          </div>
         ) : (
-          <>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              gap: "15px",
+            }}
+          >
             <h3 className="username">Not logged in</h3>
             <Link to="/login">
               <button
@@ -47,7 +61,7 @@ function Header({ currentUser, setCurrentUser }) {
                 Login
               </button>
             </Link>
-          </>
+          </div>
         )}
       </div>
     </header>

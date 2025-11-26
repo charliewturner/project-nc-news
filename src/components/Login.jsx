@@ -65,9 +65,10 @@ function Login({ setCurrentUser }) {
       {error && <p style={{ color: "red" }}>{error}</p>}
 
       <form onSubmit={handleSubmit}>
-        <label>
+        <label style={{ margin: "15px" }}>
           Username
           <input
+            style={{ marginLeft: "7px" }}
             value={username}
             onChange={(event) => setUsername(event.target.value)}
             required
@@ -77,6 +78,7 @@ function Login({ setCurrentUser }) {
         <label>
           Password
           <input
+            style={{ marginLeft: "7px" }}
             type="password"
             value={password}
             onChange={(event) => setPassword(event.target.value)}
