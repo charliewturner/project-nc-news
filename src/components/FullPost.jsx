@@ -137,7 +137,6 @@ function FullPost({
     userVote: 0,
   };
 
-  console.log(post);
   return (
     <div className="pop-up-overlay">
       <div className="full-post-pop-up">

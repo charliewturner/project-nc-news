@@ -9,7 +9,6 @@ function CommentList({
   currentUser,
   handleCommentVote,
 }) {
-  console.log(post.article.article_id);
   // if (!comments) return;
   // if (!post || !post.article_id) return <p>Loading comments...</p>;
 

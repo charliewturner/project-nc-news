@@ -4,6 +4,7 @@ import FilterControls from "./FilterControls";
 import PostsDisplay from "./PostsDisplay";
 import Search from "./Search";
 import Header from "./Header";
+import NewArticleForm from "./NewArticleForm";
 
 function Home({
   currentUser,
@@ -22,6 +23,17 @@ function Home({
   const [sortBy, setSortBy] = useState("date");
   const [sortOrder, setSortOrder] = useState("desc");
   const [displayedPosts, setDisplayedPosts] = useState([]);
+
+  const [showArticleForm, setShowArticleForm] = useState(false);
+  const handleNewArticle = (article) => {
+    // put the new article at the top of the list
+    setDisplayedPosts((prev) => [article, ...prev]);
+  };
+
+  useEffect(() => {
+    let posts = [...fetchedArticles];
+    // ... your existing sorting / filtering ...
+  }, [fetchedArticles, sortBy, sortOrder, topicFiltered]);
 
   useEffect(() => {
     let posts = [...fetchedArticles];
@@ -61,6 +73,36 @@ function Home({
     <>
       <Header currentUser={currentUser} setCurrentUser={setCurrentUser} />
       <>
+        <section className="new-article-section">
+          <h2>Create a new article</h2>
+
+          {!currentUser && (
+            <p className="login-warning">
+              You must be logged in to post an article.
+            </p>
+          )}
+
+          <button
+            className="new-article-button"
+            onClick={() => {
+              if (!currentUser) {
+                alert("Please log in to post an article.");
+                return;
+              }
+              setShowArticleForm(true); // show your popup form
+            }}
+          >
+            Post an Article
+          </button>
+
+          {showArticleForm && (
+            <NewArticleForm
+              currentUser={currentUser}
+              setShowArticleForm={setShowArticleForm}
+              onArticleCreated={handleNewArticle}
+            />
+          )}
+        </section>
         <section className="main-display">
           {/* <section className="search-newpost-container">
             <Search />
