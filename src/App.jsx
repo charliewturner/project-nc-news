@@ -19,7 +19,12 @@ function App() {
   const [userArticleVotes, setUserArticleVotes] = useState({});
   const [userCommentVotes, setUserCommentVotes] = useState({});
 
-  // ⬇ changed from hardcoded "grumpy19" to value from localStorage (or null)
+  const handleArticleDeleted = (deletedId) => {
+    setFetchedArticles((prev) =>
+      prev.filter((article) => article.article_id !== deletedId)
+    );
+  };
+
   const [currentUser, setCurrentUser] = useState(() => {
     return localStorage.getItem("nc_news_user") || null;
   });
@@ -251,6 +256,7 @@ function App() {
             setUserCommentVotes={setUserCommentVotes}
             handleCommentVote={handleCommentVote}
             currentUser={currentUser}
+            onArticleDeleted={handleArticleDeleted}
           />
         }
       />

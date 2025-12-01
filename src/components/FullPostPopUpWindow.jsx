@@ -10,6 +10,7 @@ function FullPostPopUpWindow({
   setUserCommentVotes,
   handleCommentVote,
   currentUser,
+  onArticleDeleted,
 }) {
   const { article_id } = useParams();
   const navigate = useNavigate();
@@ -39,6 +40,7 @@ function FullPostPopUpWindow({
       setUserCommentVotes={setUserCommentVotes}
       handleCommentVote={handleCommentVote}
       currentUser={currentUser}
+      onArticleDeleted={onArticleDeleted}
       onClose={() => navigate("/")}
     />
   );

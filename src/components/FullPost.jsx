@@ -11,6 +11,7 @@ function FullPost({
   userCommentVotes,
   setUserCommentVotes,
   currentUser,
+  onArticleDeleted,
 }) {
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
@@ -33,7 +34,9 @@ function FullPost({
         if (!response.ok) {
           throw new Error("There was a problem deleting this article.");
         }
-
+        if (onArticleDeleted) {
+          onArticleDeleted(post.article.article_id);
+        }
         onClose?.();
 
         window.alert("Article successfully deleted");
