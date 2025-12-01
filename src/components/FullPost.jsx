@@ -17,6 +17,33 @@ function FullPost({
 
   if (!post) return;
 
+  const handleArticleDelete = () => {
+    const confirmDeletion = window.confirm(
+      "Are you sure you want to delete this article?"
+    );
+    if (!confirmDeletion) return;
+
+    fetch(
+      `https://project-northcoders-news.onrender.com/api/articles/${post.article.article_id}`,
+      {
+        method: "DELETE",
+      }
+    )
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("There was a problem deleting this article.");
+        }
+
+        onClose?.();
+
+        window.alert("Article successfully deleted");
+      })
+      .catch((error) => {
+        console.error(error);
+        alert("There was a problem deleting this article.");
+      });
+  };
+
   const handleCommentVote = (comment_id, newUserVote) => {
     if (!currentUser) {
       alert("You must be logged in to vote on comments.");
@@ -170,6 +197,11 @@ function FullPost({
               <p className="post-topic">Topic: {post.article.topic}</p>
               <p className="post-date">{formattedDate} </p>
               <p className="post-author">Posted by {post.article.author}</p>
+              {post.article.author === currentUser && (
+                <div className="comment-delete" onClick={handleArticleDelete}>
+                  Delete
+                </div>
+              )}
             </div>
           </div>
           <div className="pop-up-body">{post.article.body}</div>
