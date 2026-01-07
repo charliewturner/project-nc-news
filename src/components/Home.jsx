@@ -74,26 +74,34 @@ function Home({
       <Header currentUser={currentUser} setCurrentUser={setCurrentUser} />
       <>
         <section className="new-article-section">
-          <h2>Create a new article</h2>
+          <div className="new-article-content">
+            <p className="new-article-helper">
+              Share something with the NC News community.
+            </p>
+
+            <button
+              className="new-article-button"
+              onClick={() => {
+                if (!currentUser) {
+                  alert("Please log in to post an article.");
+                  return;
+                }
+                setShowArticleForm(true);
+              }}
+              title={
+                !currentUser ? "Log in to post an article" : "Post an article"
+              }
+            >
+              <span className="new-article-button-icon">+</span>
+              Post an article
+            </button>
+          </div>
 
           {!currentUser && (
             <p className="login-warning">
               You must be logged in to post an article.
             </p>
           )}
-
-          <button
-            className="new-article-button"
-            onClick={() => {
-              if (!currentUser) {
-                alert("Please log in to post an article.");
-                return;
-              }
-              setShowArticleForm(true); // show your popup form
-            }}
-          >
-            Post an Article
-          </button>
 
           {showArticleForm && (
             <NewArticleForm
